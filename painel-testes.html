@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambiente de Testes - Nexus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            background: linear-gradient(180deg, #060b19 0%, #020408 100%);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .test-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 30px;
+            border-radius: 24px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        h1 { color: #00d2ff; font-size: 1.5rem; margin-bottom: 10px; font-weight: 800; }
+        p { color: #8a99ad; font-size: 0.85rem; margin-bottom: 25px; }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-size: 0.75rem; color: #8a99ad; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+        input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        input:focus { border-color: #0052ff; }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #0052ff;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 15px rgba(0, 82, 255, 0.4);
+        }
+        button:hover { background: #0043d6; transform: translateY(-2px); }
+        .user-info {
+            background: rgba(255,255,255,0.02);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: #00e676;
+            border: 1px solid rgba(0, 230, 118, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="test-container">
+        <h1>Simulador de Depósito</h1>
+        <p>Ambiente de Sandbox para testes locais no Microsoft Edge</p>
+
+        <div class="user-info" id="status-auth">
+            Verificando autenticação do app...
+        </div>
+
+        <div class="input-group">
+            <label>Valor do Depósito Fictício (R$)</label>
+            <input type="number" id="test-amount" value="100" min="1">
+        </div>
+
+        <button id="btn-simulate" disabled>Injetar Depósito & Processar Rede</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, collection, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Sua configuração exata do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKDFw7khZzM9hIX7xbbrbFQeESiCLnmOw",
+            authDomain: "monety-site-9175f.firebaseapp.com",
+            projectId: "monety-site-9175f",
+            storageBucket: "monety-site-9175f.firebasestorage.app",
+            messagingSenderId: "840821848803",
+            appId: "1:840821848803:web:b99a5528e4bb925518a3d6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let usuarioLogadoUid = null;
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                usuarioLogadoUid = user.uid;
+                document.getElementById('status-auth').innerText = `Conectado como UID: ${user.uid}`;
+                document.getElementById('btn-simulate').removeAttribute('disabled');
+            } else {
+                document.getElementById('status-auth').style.color = '#ff4b5c';
+                document.getElementById('status-auth').innerText = "Nenhum usuário logado! Faça login na plataforma primeiro.";
+            }
+        });
+
+        document.getElementById('btn-simulate').addEventListener('click', async () => {
+            const valorDeposito = parseFloat(document.getElementById('test-amount').value);
+            if (isNaN(valorDeposito) || valorDeposito <= 0) {
+                return Swal.fire("Erro", "Insira um valor válido", "error");
+            }
+
+            Swal.fire({
+                title: 'Processando Simulação...',
+                text: 'Injetando saldo e calculando 3 gerações de comissão',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            try {
+                // 1. ADICIONA O SALDO AO USUÁRIO LOGADO (Simula a aprovação do Pix)
+                const userRef = doc(db, "usuarios", usuarioLogadoUid);
+                const userSnap = await getDoc(userRef);
+                
+                if (!userSnap.exists()) throw new Error("Usuário não encontrado no Firestore.");
+                const userData = userSnap.data();
+
+                await updateDoc(userRef, {
+                    saldoLucro: increment(valorDeposito) // Ou o campo que você usa para saldo disponível/depósito
+                });
+
+                // Cria o registro fake no histórico do usuário
+                await addDoc(collection(db, "historico"), {
+                    userId: usuarioLogadoUid,
+                    valor: valorDeposito,
+                    tipo: 'Deposito Simulado',
+                    data: Timestamp.now()
+                });
+
+                // 2. RASTREIA A ÁRVORE GENEALÓGICA PARA PAGAR AS 3 GERAÇÕES
+                let atualIndicadorUid = userData.indicadoPor || null; // Quem indicou o usuário atual (1ª Geração)
+                
+                // Configuração das porcentagens de rede (20%, 5%, 1%)
+                const configuracaoComissao = [
+                    { nivel: 1, porcentagem: 0.20, label: "1ª Geração" },
+                    { nivel: 2, porcentagem: 0.05, label: "2ª Geração" },
+                    { nivel: 3, porcentagem: 0.01, label: "3ª Geração" }
+                ];
+
+                let logsComissoes = "";
+
+                for (let i = 0; i < configuracaoComissao.length; i++) {
+                    if (!atualIndicadorUid || atualIndicadorUid.trim() === "") break;
+
+                    const config = configuracaoComissao[i];
+                    const patrocinadorRef = doc(db, "usuarios", atualIndicadorUid);
+                    const patrocinadorSnap = await getDoc(patrocinadorRef);
+
+                    if (patrocinadorSnap.exists()) {
+                        const valorComissao = valorDeposito * config.porcentagem;
+
+                        // Atualiza os ganhos do patrocinador correspondente da geração
+                        await updateDoc(patrocinadorRef, {
+                            saldoLucro: increment(valorComissao),
+                            totalComissoes: increment(valorComissao)
+                        });
+
+                        // Grava no histórico de rede do patrocinador
+                        await addDoc(collection(db, "historico"), {
+                            userId: atualIndicadorUid,
+                            valor: valorComissao,
+                            tipo: `Comissão ${config.label}`,
+                            data: Timestamp.now(),
+                            vindoDe: userData.nome || "Usuário Teste"
+                        });
+
+                        logsComissoes += `<br><b>${config.label}:</b> UID (...${atualIndicadorUid.substring(0,6)}) ganhou R$ ${valorComissao.toFixed(2)}`;
+
+                        // Sobe para o próximo nível da árvore (quem indicou o patrocinador atual)
+                        atualIndicadorUid = patrocinadorSnap.data().indicadoPor || null;
+                    } else {
+                        break; // Se o pai não existir, encerra a subida
+                    }
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Simulação Concluída!',
+                    html: `Depósito de <b>R$ ${valorDeposito.toFixed(2)}</b> creditado com sucesso!<br>${logsComissoes === "" ? "<br><i>Nenhum patrocinador na rede para comissionar.</i>" : logsComissoes}`,
+                    background: '#060b19',
+                    color: '#fff',
+                    confirmButtonColor: '#0052ff'
+                });
+
+            } catch (error) {
+                console.error(error);
+                Swal.fire("Erro na simulação", error.message, "error");
+            }
+        });
+    </script>
+</body>
+</html>
