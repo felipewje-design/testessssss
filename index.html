@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nexus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #060b19 0%, #020408 100%);
+            --card-glass: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.07);
+            --blue-primary: #0052ff;
+            --blue-glow: rgba(0, 82, 255, 0.25);
+            --cyan-neon: #00d2ff;
+            --text-gray: #8a8a93;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif; 
+            outline: none !important; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        body {
+            background: var(--bg-gradient);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Orbes de Luz decorativos ao fundo para manter a profundidade do painel */
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(130px);
+            z-index: 1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: var(--blue-primary); }
+        .orb-2 { bottom: -10%; right: -10%; width: 450px; height: 450px; background: var(--cyan-neon); }
+
+        .login-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 410px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            padding: 50px 35px;
+            border-radius: 28px;
+            border: 1px solid var(--card-border);
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+        }
+
+        .logo-box {
+            margin-bottom: 35px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -1.5px;
+            display: inline-block;
+        }
+
+        .logo span { color: var(--blue-primary); text-shadow: 0 0 25px var(--blue-glow); }
+        
+        .login-card p { 
+            color: var(--text-gray); 
+            font-size: 0.88rem; 
+            margin-top: 10px;
+            line-height: 1.4;
+            letter-spacing: 0.2px;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-container i.input-icon {
+            position: absolute;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4c4c54;
+            font-size: 1.05rem;
+            transition: color 0.3s, cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Ícone interativo de ver senha */
+        .input-container i.btn-toggle-password {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+        .input-container i.btn-toggle-password:hover {
+            color: #8a8a93;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px 55px 18px 22px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input::placeholder { color: #4c4c54; }
+
+        input:focus { 
+            border-color: rgba(0, 82, 255, 0.5); 
+            background: rgba(4, 8, 19, 0.9);
+            box-shadow: 0 0 25px var(--blue-glow), inset 0 1px 0 rgba(255,255,255,0.02);
+        }
+        
+        input:focus ~ i.input-icon {
+            color: var(--cyan-neon);
+        }
+
+        .btn-modern-submit {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 16px;
+            background: var(--blue-primary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px var(--blue-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-modern-submit:hover {
+            opacity: 0.95;
+            box-shadow: 0 10px 30px rgba(0, 82, 255, 0.45);
+            background: #1a63ff;
+        }
+        .btn-modern-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-modern-submit:active { transform: scale(0.98); }
+
+        .footer-action { 
+            margin-top: 32px; 
+            font-size: 0.85rem; 
+            color: #6c6c74;
+        }
+        .footer-action a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 600;
+            border-bottom: 1px dashed var(--blue-primary);
+            padding-bottom: 2px;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .footer-action a:hover { 
+            color: var(--cyan-neon);
+            border-bottom-color: var(--cyan-neon);
+            border-bottom-style: solid;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glowing-orb orb-1"></div>
+    <div class="glowing-orb orb-2"></div>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="logo-box">
+                <div class="logo"><span>Nex</span>us</div>
+                <p>Entre na sua central de investimentos de alta performance</p>
+            </div>
+
+            <div class="input-container">
+                <input type="email" id="email" placeholder="Endereço de e-mail">
+                <i class="fas fa-envelope input-icon"></i>
+            </div>
+
+            <div class="input-container">
+                <input type="password" id="password" placeholder="Senha de acesso">
+                <i class="fas fa-lock input-icon btn-toggle-password" id="togglePassword"></i>
+            </div>
+
+            <button class="btn-modern-submit" id="btnLogin">
+                <span>CONECTAR MINHA CONTA</span>
+                <i class="fas fa-arrow-right" style="font-size: 0.85rem; position: static; color: inherit; transform: none;"></i>
+            </button>
+
+            <div class="footer-action">
+                Novo por aqui? <a href="registro.html">Criar credenciais</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDKDFw7khZzM9hIX7xbbrbFQeESiCLnmOw",
+            authDomain: "monety-site-9175f.firebaseapp.com",
+            projectId: "monety-site-9175f",
+            storageBucket: "monety-site-9175f.firebasestorage.app",
+            messagingSenderId: "840821848803",
+            appId: "1:840821848803:web:b99a5528e4bb925518a3d6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Alternar visibilidade da senha
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            this.classList.toggle('fa-lock');
+            this.classList.toggle('fa-eye');
+        });
+
+        document.getElementById('btnLogin').addEventListener('click', async () => {
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('btnLogin');
+
+            if(!email || !password) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Dados incompletos',
+                    text: 'Preencha seu e-mail e senha.',
+                    background: '#060b19',
+                    color: '#fff',
+                    confirmButtonColor: '#0052ff'
+                });
+                return;
+            }
+
+            btn.disabled = true;
+            Swal.fire({
+                title: 'Autenticando...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); },
+                background: '#060b19',
+                color: '#fff'
+            });
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Acesso autorizado!',
+                    showConfirmButton: false,
+                    timer: 1200,
+                    background: '#060b19',
+                    color: '#fff'
+                });
+
+                setTimeout(() => {
+                    window.location.href = "home.html";
+                }, 1200);
+
+            } catch (error) {
+                btn.disabled = false;
+                let mensagem = "Verifique seus dados e tente novamente.";
+                
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    mensagem = "E-mail ou senha inválidos.";
+                } else if (error.code === 'auth/too-many-requests') {
+                    mensagem = "Muitas tentativas. Tente mais tarde.";
+                }
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Falha no acesso',
+                    text: mensagem,
+                    background: '#060b19',
+                    color: '#fff',
+                    confirmButtonColor: '#0052ff'
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+</html>
