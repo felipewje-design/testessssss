@@ -74,7 +74,6 @@
             overflow: hidden;
         }
 
-        /* Efeito de brilho de fundo no card */
         .invite-card::before {
             content: '';
             position: absolute;
@@ -187,10 +186,11 @@
         }
         .btn-copy:active { transform: scale(0.95); }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 22px; }
+        /* Alterado para Grid 2x2 para melhor encaixe das novas métricas */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
         .stat-item { 
             background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); 
-            padding: 18px; 
+            padding: 14px 16px; 
             border-radius: 18px; 
             border: 1px solid rgba(255,255,255,0.04); 
             text-align: left;
@@ -203,14 +203,15 @@
         .stat-item small { 
             display: block; 
             color: var(--text-muted); 
-            font-size: 0.7rem; 
-            margin-bottom: 8px; 
+            font-size: 0.65rem; 
+            margin-bottom: 6px; 
             text-transform: uppercase; 
             letter-spacing: 0.5px; 
             font-weight: 600;
         }
-        .stat-item span { font-weight: 800; font-size: 1.4rem; color: white; }
+        .stat-item span { font-weight: 800; font-size: 1.25rem; color: white; }
         .stat-item #bonus-ganho { color: var(--green-success); text-shadow: 0 0 15px rgba(0, 230, 118, 0.2); }
+        .stat-item #total-rede-ativos { color: var(--cyan-neon); }
 
         .levels-table {
             background: rgba(0,0,0,0.25);
@@ -240,14 +241,17 @@
         .level-row i { color: var(--cyan-neon); margin-right: 12px; width: 22px; text-align: center; font-size: 1.1rem; }
         .level-row span { font-size: 0.9rem; flex: 1; font-weight: 500; color: #e2e8f0; }
         .level-row .count-label { font-size: 0.75rem; color: var(--text-muted); margin-right: 8px; }
+        
+        /* Ajuste do tamanho da caixa para suportar o texto "Total / Ativos" */
         .level-row .count-val { 
-            font-size: 0.95rem; 
+            font-size: 0.85rem; 
             color: white; 
-            margin-right: 20px; 
+            margin-right: 15px; 
             font-weight: 700; 
-            background: rgba(255,255,255,0.1);
-            padding: 2px 10px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 10px;
             border-radius: 8px;
+            letter-spacing: 0.5px;
         }
         .level-row strong { color: var(--green-success); min-width: 45px; text-align: right; font-weight: 800; font-size: 0.95rem; }
 
@@ -336,8 +340,16 @@
 
         <div class="stats-grid">
             <div class="stat-item">
-                <small>Total na Equipe</small>
+                <small>Total na Rede</small>
                 <span id="total-rede">0</span>
+            </div>
+            <div class="stat-item">
+                <small>Ativos na Rede</small>
+                <span id="total-rede-ativos">0</span>
+            </div>
+            <div class="stat-item">
+                <small>Meus Convidados</small>
+                <span id="total-diretos">0</span>
             </div>
             <div class="stat-item">
                 <small>Ganhos da Rede</small>
@@ -348,20 +360,20 @@
         <div class="levels-table">
             <div class="level-row">
                 <span><i class="fas fa-user-tie"></i> 1ª Geração</span>
-                <span class="count-label">Membros:</span>
-                <div class="count-val" id="count-l1">0</div>
+                <span class="count-label">Convidados / Ativos:</span>
+                <div class="count-val" id="count-l1">0 / 0</div>
                 <strong id="com-l1">20%</strong>
             </div>
             <div class="level-row">
                 <span><i class="fas fa-users"></i> 2ª Geração</span>
-                <span class="count-label">Membros:</span>
-                <div class="count-val" id="count-l2">0</div>
+                <span class="count-label">Convidados / Ativos:</span>
+                <div class="count-val" id="count-l2">0 / 0</div>
                 <strong>5%</strong>
             </div>
             <div class="level-row">
                 <span><i class="fas fa-network-wired"></i> 3ª Geração</span>
-                <span class="count-label">Membros:</span>
-                <div class="count-val" id="count-l3">0</div>
+                <span class="count-label">Convidados / Ativos:</span>
+                <div class="count-val" id="count-l3">0 / 0</div>
                 <strong>1%</strong>
             </div>
         </div>
@@ -399,7 +411,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Formatador de Moeda Nativo do JS (BRL)
         const formatadorMoeda = new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'
@@ -411,25 +422,37 @@
                 const linkElement = document.getElementById('referral-link');
                 linkElement.innerText = `${baseUrl}/registro.html?ref=${user.uid}`;
                 
-                // Adiciona uma leve animação no link quando ele carrega
                 linkElement.classList.add('animate__animated', 'animate__fadeIn');
                 
                 onSnapshot(doc(db, "usuarios", user.uid), (snap) => {
                     if(snap.exists()){
                         const data = snap.data();
                         
+                        // Resgate de Convidados Totais por Geração
                         const l1 = data.indicadosCount || 0;
                         const l2 = data.indicadosL2Count || 0;
                         const l3 = data.indicadosL3Count || 0;
+
+                        // Resgate de Convidados Ativos por Geração
+                        const l1Ativos = data.indicadosAtivosCount || 0;
+                        const l2Ativos = data.indicadosL2AtivosCount || 0;
+                        const l3Ativos = data.indicadosL3AtivosCount || 0;
+
                         const totalComissoes = data.totalComissoes || 0;
+                        
+                        // Cálculos consolidados da estrutura
                         const totalEquipe = l1 + l2 + l3;
+                        const totalAtivos = l1Ativos + l2Ativos + l3Ativos;
                         
-                        document.getElementById('count-l1').innerText = l1;
-                        document.getElementById('count-l2').innerText = l2;
-                        document.getElementById('count-l3').innerText = l3;
+                        // Atualiza as caixas de texto com "Total / Ativos"
+                        document.getElementById('count-l1').innerText = `${l1} / ${l1Ativos}`;
+                        document.getElementById('count-l2').innerText = `${l2} / ${l2Ativos}`;
+                        document.getElementById('count-l3').innerText = `${l3} / ${l3Ativos}`;
+                        
+                        // Atualiza o painel superior (Grid)
                         document.getElementById('total-rede').innerText = totalEquipe;
-                        
-                        // Atualizado para usar o formatador nativo
+                        document.getElementById('total-rede-ativos').innerText = totalAtivos;
+                        document.getElementById('total-diretos').innerText = l1;
                         document.getElementById('bonus-ganho').innerText = formatadorMoeda.format(totalComissoes);
                         
                         atualizarMetasEquipe(totalEquipe);
@@ -470,7 +493,6 @@
                 label.innerHTML = "✨ Equipe de Elite alcançada!";
             }
 
-            // Evita passar de 100% visualmente
             const finalPercent = Math.min(porcentagem, 100).toFixed(0);
             bar.style.width = finalPercent + "%";
             percentLabel.innerText = finalPercent + "%";
@@ -506,7 +528,6 @@
         }
 
         function sucessoCopia() {
-            // Um leve feedback visual no próprio botão
             const btn = document.querySelector('.btn-copy');
             const iconOriginal = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-check"></i>';
