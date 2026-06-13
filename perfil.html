@@ -500,7 +500,7 @@
     <!-- BARRA DE PROGRESSO DE CARREIRA -->
     <div class="career-card animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
         <div class="career-header">
-            <small>Progresso de Carreira</small>
+            <small>Progresso de Carreira (Ativos)</small>
             <span id="career-next-step">0/5 Indicações</span>
         </div>
         <div class="progress-capsule">
@@ -531,7 +531,7 @@
             <div class="goals-icon-box"><i class="fas fa-trophy"></i></div>
             <div>
                 <h3 style="font-size: 1rem; font-weight: 700;">Metas & Patentes</h3>
-                <p style="font-size: 0.75rem; color: var(--text-muted);">Complete convites, ganhe bônus e veja o Ranking</p>
+                <p style="font-size: 0.75rem; color: var(--text-muted);">Complete convites de ativos, ganhe bônus e veja o Ranking</p>
             </div>
         </div>
         <i class="fas fa-chevron-right" style="color: var(--text-muted); font-size: 0.85rem;"></i>
@@ -570,7 +570,7 @@
         </a>
     </div>
 
-    <button class="btn-logout-danger animate__animated animate__fadeInUp" style="animation-delay: 0.25s;" idbtnLogout">Desconectar da Conta</button>
+    <button class="btn-logout-danger animate__animated animate__fadeInUp" style="animation-delay: 0.25s;" id="btnLogout">Desconectar da Conta</button>
 
     <!-- ABA MODAL DO SISTEMA DE METAS POR CONVITE E RANKING -->
     <div class="metas-screen-overlay" id="metas-module-screen">
@@ -630,13 +630,13 @@
         let totalIndicadosGlobal = 0;
         let metasResgatadas = [];
 
-        // Estrutura das metas/patentes solicitadas
+        // Estrutura das metas/patentes solicitadas (PREMIAÇÕES AUMENTADAS)
         const configuracaoMetas = [
-            { id: "bronze", nome: "Patente Bronze", convites: 5, premio: 5.00, cor: "var(--rank-bronze)", icone: "fa-medal" },
-            { id: "prata", nome: "Patente Prata", convites: 15, premio: 10.00, cor: "var(--rank-prata)", icone: "fa-award" },
-            { id: "ouro", nome: "Patente Ouro", convites: 30, premio: 20.00, cor: "var(--rank-ouro)", icone: "fa-trophy" },
-            { id: "platina", nome: "Patente Platina", convites: 50, premio: 50.00, cor: "var(--rank-platina)", icone: "fa-crown" },
-            { id: "diamante", nome: "Patente Diamante Imortal", convites: 100, premio: 120.00, cor: "var(--rank-diamante)", icone: "fa-gem" }
+            { id: "bronze", nome: "Patente Bronze", convites: 5, premio: 50.00, cor: "var(--rank-bronze)", icone: "fa-medal" },
+            { id: "prata", nome: "Patente Prata", convites: 15, premio: 150.00, cor: "var(--rank-prata)", icone: "fa-award" },
+            { id: "ouro", nome: "Patente Ouro", convites: 30, premio: 350.00, cor: "var(--rank-ouro)", icone: "fa-trophy" },
+            { id: "platina", nome: "Patente Platina", convites: 50, premio: 600.00, cor: "var(--rank-platina)", icone: "fa-crown" },
+            { id: "diamante", nome: "Patente Diamante Imortal", convites: 100, premio: 1500.00, cor: "var(--rank-diamante)", icone: "fa-gem" }
         ];
 
         // --- CONTROLES DE INTERFACE DO SISTEMA DE METAS (ABAS E MODAL) ---
@@ -782,7 +782,7 @@
                         </div>
                         <div class="meta-details">
                             <h4>${meta.nome}</h4>
-                            <p>Meta: Convidar ${meta.convites} usuários</p>
+                            <p>Meta: Convidar ${meta.convites} usuários ativos</p>
                             <span>Bônus: +R$ ${meta.premio.toFixed(2)}</span>
                         </div>
                     </div>
