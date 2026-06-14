@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Início - Nexus</title>
+    <title>Início - Aeterna Watches</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -63,8 +63,8 @@
         }
 
         .top-bar { padding: 25px 20px 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo-home { font-weight: 800; font-size: 1.3rem; letter-spacing: -1px; }
-        .logo-home span { color: var(--cyan-neon); text-shadow: 0 0 10px rgba(0, 210, 255, 0.3); }
+        .logo-home { font-weight: 800; font-size: 1.3rem; letter-spacing: -1px; text-transform: uppercase; }
+        .logo-home span { color: var(--gold); text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
         .user-greeting h2 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-top: 2px; text-transform: capitalize; }
 
         .portfolio-card { 
@@ -110,13 +110,14 @@
             gap: 8px;
             transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .action-btn i { font-size: 1.4rem; color: var(--cyan-neon); filter: drop-shadow(0 0 5px rgba(0, 210, 255, 0.3)); }
+        .action-btn i { font-size: 1.4rem; color: var(--gold); filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3)); }
         .action-btn:active { transform: scale(0.95); background: rgba(255,255,255,0.06); }
 
+        /* BANNER DA ROLETA MOVIDO PARA O TOPO */
         .roulette-banner {
-            margin: 5px 20px 10px 20px;
-            background: linear-gradient(135deg, rgba(0, 82, 255, 0.15) 0%, rgba(0, 210, 255, 0.05) 100%);
-            border: 1px solid rgba(0, 210, 255, 0.25);
+            margin: 5px 20px 20px 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.02) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.25);
             border-radius: 20px;
             padding: 16px 20px;
             display: flex;
@@ -128,16 +129,16 @@
             transition: 0.2s;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
-        .roulette-banner:active { transform: scale(0.98); border-color: var(--cyan-neon); }
+        .roulette-banner:active { transform: scale(0.98); border-color: var(--gold); }
         .roulette-left { display: flex; align-items: center; gap: 15px; text-align: left; }
         .roulette-icon-wrapper {
-            width: 44px; height: 44px; background: rgba(0, 210, 255, 0.1); border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0, 210, 255, 0.2);
+            width: 44px; height: 44px; background: rgba(255, 215, 0, 0.1); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 215, 0, 0.2);
         }
-        .roulette-icon-wrapper i { font-size: 1.3rem; color: var(--cyan-neon); animation: spinWheel 8s linear infinite; }
+        .roulette-icon-wrapper i { font-size: 1.3rem; color: var(--gold); animation: spinWheel 8s linear infinite; }
         @keyframes spinWheel { 100% { transform: rotate(360deg); } }
         
-        .roulette-details h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
+        .roulette-details h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; color: #fff; }
         .roulette-details p { font-size: 0.72rem; color: var(--text-muted); }
         
         .roulette-badge {
@@ -256,6 +257,38 @@
             transition: width 1s linear;
         }
 
+        /* HISTÓRIA DA LOJA - RELÓGIOS PREMIUM */
+        .story-section {
+            margin: 30px 20px 40px 20px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .story-section i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+        }
+        .story-section h3 {
+            color: #fff;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .story-section p {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
         .btn-tg {
             position: fixed; bottom: 95px; right: 20px; background: var(--telegram);
             width: 48px; height: 48px; border-radius: 50%; display: flex;
@@ -300,7 +333,7 @@
         .nav-item i { font-size: 1.25rem; }
         .nav-item span { font-size: 0.68rem; font-weight: 500; }
         .nav-item.active { color: #fff; }
-        .nav-item.active i { color: var(--cyan-neon); filter: drop-shadow(0 0 6px rgba(0, 210, 255, 0.5)); }
+        .nav-item.active i { color: var(--gold); filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4)); }
         @keyframes pulseAlert { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
     </style>
 </head>
@@ -314,58 +347,58 @@
     </div>
 
     <div id="container-aviso" class="animate__animated animate__fadeInDown">
-        <i class="fas fa-bullhorn" style="margin-right: 8px; color: var(--cyan-neon);"></i>
+        <i class="fas fa-bullhorn" style="margin-right: 8px; color: var(--gold);"></i>
         <span id="texto-aviso"></span>
     </div>
 
     <div class="top-bar">
         <div class="user-greeting">
-            <div class="logo-home"><span>Nex</span>us</div>
+            <div class="logo-home"><span>Ae</span>terna</div>
             <h2 id="home-nome">Sincronizando...</h2>
         </div>
         <a href="perfil.html" style="color: var(--text-muted); font-size: 1.5rem; transition: 0.2s;"><i class="fas fa-user-circle"></i></a>
     </div>
 
-    <div class="portfolio-card">
+    <a href="roleta.html" class="roulette-banner animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
+        <div class="roulette-left">
+            <div class="roulette-icon-wrapper">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="roulette-details">
+                <h4>Roleta Exclusiva</h4>
+                <p>Multiplique seu acervo de luxo</p>
+            </div>
+        </div>
+        <div id="roleta-badge" class="roulette-badge">0 Giros</div>
+    </a>
+
+    <div class="portfolio-card animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
         <div class="portfolio-header">
             <div id="vip-tag" class="vip-badge vip-bronze">
-                <i class="fas fa-crown"></i> <span id="vip-nome">VIP Bronze</span>
+                <i class="fas fa-crown"></i> <span id="vip-nome">Colecionador Bronze</span>
             </div>
-            <br><small style="margin-top: 10px; display: inline-block;">Patrimônio Total</small>
+            <br><small style="margin-top: 10px; display: inline-block;">Patrimônio em Relógios</small>
             <div class="balance-main">
                 <span id="home-saldo">R$ 0,00</span>
                 <i class="fas fa-eye" id="toggle-balance" style="font-size: 1.1rem; color: rgba(255,255,255,0.2); cursor: pointer; transition: 0.2s;"></i>
             </div>
         </div>
         <div class="stats-grid">
-            <div class="stat-item"><span>Alocado</span><strong id="stat-investido">R$ 0,00</strong></div>
-            <div class="stat-item"><span>Total Retornado</span><strong id="stat-ganhos">R$ 0,00</strong></div>
-            <div class="stat-item"><span>Conta Principal</span><strong id="stat-investir">R$ 0,00</strong></div>
-            <div class="stat-item"><span>Disponível Saque</span><strong id="stat-saque">R$ 0,00</strong></div>
+            <div class="stat-item"><span>Valor Alocado</span><strong id="stat-investido">R$ 0,00</strong></div>
+            <div class="stat-item"><span>Valorização Total</span><strong id="stat-ganhos">R$ 0,00</strong></div>
+            <div class="stat-item"><span>Capitalização</span><strong id="stat-investir">R$ 0,00</strong></div>
+            <div class="stat-item"><span>Disponível Venda</span><strong id="stat-saque">R$ 0,00</strong></div>
         </div>
     </div>
 
-    <div class="actions-grid">
-        <a href="deposito.html" class="action-btn"><i class="fas fa-wallet"></i>Depositar</a>
-        <a href="saque.html" class="action-btn"><i class="fas fa-hand-holding-usd"></i>Sacar</a>
+    <div class="actions-grid animate__animated animate__fadeIn" style="animation-delay: 0.3s;">
+        <a href="deposito.html" class="action-btn"><i class="fas fa-file-invoice-dollar"></i>Adquirir Fundos</a>
+        <a href="saque.html" class="action-btn"><i class="fas fa-coins"></i>Resgatar</a>
     </div>
 
-    <a href="roleta.html" class="roulette-banner">
-        <div class="roulette-left">
-            <div class="roulette-icon-wrapper">
-                <i class="fas fa-dharmachakra"></i>
-            </div>
-            <div class="roulette-details">
-                <h4>Roleta Premiada</h4>
-                <p>Tente a sorte e multiplique bancas</p>
-            </div>
-        </div>
-        <div id="roleta-badge" class="roulette-badge">0 Giros</div>
-    </a>
-
-    <div class="checkin-banner animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+    <div class="checkin-banner animate__animated animate__zoomIn" style="animation-delay: 0.4s;">
         <div class="checkin-header">
-            <div class="checkin-title"><i class="fas fa-fire"></i> Check-in Diário</div>
+            <div class="checkin-title"><i class="fas fa-fire"></i> Presença Diária</div>
             <div id="badge-streak" class="vip-badge" style="background: rgba(255, 152, 0, 0.15); color: #ff9800; border: 1px solid rgba(255,152,0,0.3); box-shadow: none;">0 Dias</div>
         </div>
         
@@ -376,22 +409,28 @@
         </button>
     </div>
 
-    <div class="quests-banner animate__animated animate__zoomIn" style="animation-delay: 0.3s;">
+    <div class="quests-banner animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
         <div class="quests-header">
-            <div class="quests-title"><i class="fas fa-tasks"></i> Missões de Evolução</div>
+            <div class="quests-title"><i class="fas fa-tasks"></i> Clube de Vantagens</div>
             <div class="vip-badge" style="background: rgba(0, 210, 255, 0.1); color: var(--cyan-neon); border: 1px solid rgba(0,210,255,0.2); box-shadow: none;">Bônus</div>
         </div>
         <div id="container-missoes"></div>
     </div>
 
-    <h3 style="padding: 0 25px 5px 25px; font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Meus Contratos Ativos</h3>
+    <h3 style="padding: 0 25px 5px 25px; font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-top: 10px;">Meu Acervo Privado</h3>
     <div id="lista-investimentos" class="plans-stack"></div>
 
+    <div class="story-section animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+        <i class="fas fa-clock"></i>
+        <h3>O Legado Aeterna</h3>
+        <p>Desde o nosso início, a <strong>Aeterna</strong> tem sido o sinônimo da verdadeira e alta relojoaria. Nós acreditamos que um relógio premium faz mais do que apenas medir o tempo: ele o eterniza. Nossas peças são cuidadosamente selecionadas para indivíduos que exigem precisão impecável, design inconfundível e o verdadeiro peso da exclusividade no pulso.</p>
+    </div>
+
     <nav class="nav-bottom">
-        <a href="home.html" class="nav-item active"><i class="fas fa-home"></i><span>Início</span></a>
-        <a href="planos.html" class="nav-item"><i class="fas fa-chart-pie"></i><span>Planos</span></a>
-        <a href="indicacao.html" class="nav-item"><i class="fas fa-share-alt"></i><span>Indicar</span></a>
-        <a href="perfil.html" class="nav-item"><i class="fas fa-user-alt"></i><span>Perfil</span></a>
+        <a href="home.html" class="nav-item active"><i class="fas fa-gem"></i><span>Acervo</span></a>
+        <a href="planos.html" class="nav-item"><i class="fas fa-stopwatch"></i><span>Peças</span></a>
+        <a href="indicacao.html" class="nav-item"><i class="fas fa-share-alt"></i><span>Convite</span></a>
+        <a href="perfil.html" class="nav-item"><i class="fas fa-user-alt"></i><span>Conta</span></a>
     </nav>
 
     <script type="module">
@@ -430,7 +469,7 @@
         }
 
         const nomes_pop = ["Marcos S.", "Julia R.", "Phelipe A.", "Ana Paula", "Bruno K.", "Carlos G.", "Diego M."];
-        const tipos_pop = ["acabou de sacar", "recebeu lucro de", "ativou um novo plano"];
+        const tipos_pop = ["acabou de resgatar", "recebeu lucro de", "adquiriu uma peça de"];
         function showPop() {
             const pop = document.getElementById('social-pop');
             const content = document.getElementById('social-content');
@@ -485,7 +524,6 @@
                         }
                         
                         const hoje = getHojeString();
-                        // Reset diário das missões 1 e 2
                         if (userData.ultimaMissaoReset !== hoje) {
                             await updateDoc(doc(db, "usuarios", user.uid), {
                                 missao1Coletada: false,
@@ -495,7 +533,7 @@
                             return; 
                         }
 
-                        document.getElementById('home-nome').innerText = `Olá, ${userData.nome || "Investidor"}`;
+                        document.getElementById('home-nome').innerText = `Olá, ${userData.nome || "Colecionador"}`;
                         
                         const girosAtuais = userData.girosRoleta || 0;
                         
@@ -604,12 +642,12 @@
                             totalGanhos: increment(proximaRecompensa)
                         });
                         await addDoc(collection(db, "historico"), {
-                            userId: uid, valor: proximaRecompensa, tipo: `Check-in Diário (${proximoStreak}º dia)`, data: Timestamp.now()
+                            userId: uid, valor: proximaRecompensa, tipo: `Presença Diária (${proximoStreak}º dia)`, data: Timestamp.now()
                         });
-                        Swal.fire({ title: 'Recompensa Diária!', html: `Você resgatou <b style="color:var(--green-success)">R$ ${proximaRecompensa.toFixed(2)}</b> pelo seu <b>${proximoStreak}º</b> dia consecutivo!`, icon: 'success', background: '#060b19', color: '#fff', confirmButtonColor: '#ff5722' });
+                        Swal.fire({ title: 'Recompensa Diária!', html: `Você resgatou <b style="color:var(--green-success)">R$ ${proximaRecompensa.toFixed(2)}</b> pelo seu <b>${proximoStreak}º</b> dia consecutivo conosco!`, icon: 'success', background: '#060b19', color: '#fff', confirmButtonColor: '#ff5722' });
                     } catch(err) {
                         console.error(err);
-                        Swal.fire('Erro', 'Falha ao processar check-in.', 'error');
+                        Swal.fire('Erro', 'Falha ao processar presença.', 'error');
                         btn.disabled = false;
                         btn.innerHTML = `🔥 Resgatar + R$ ${proximaRecompensa.toFixed(2)}`;
                     }
@@ -625,7 +663,6 @@
 
             const totalIndicados = userData.indicadosAtivosNivel1 || 0; 
 
-            // Estado das coletas mapeadas do banco de dados
             const m1Coletada = userData.missao1Coletada === true;
             const m2Coletada = userData.missao2Coletada === true;
             const m3Coletada = userData.missao3Coletada === true;
@@ -635,13 +672,12 @@
 
             let html = '';
 
-            // --- MISSÃO 1: NOVO INVESTIMENTO (MUDANÇA DE REGRA) ---
             html += `
             <div class="quest-item">
                 <div class="quest-info">
-                    <h4>💼 Novo Investimento</h4>
-                    <p>Adquira 1 novo contrato no dia de hoje</p>
-                    <div class="quest-reward"><i class="fas fa-dharmachakra"></i> +1 Giro Grátis</div>
+                    <h4>💼 Novo Relógio</h4>
+                    <p>Adquira 1 nova peça no dia de hoje</p>
+                    <div class="quest-reward"><i class="fas fa-gem"></i> +1 Giro Grátis</div>
                 </div>
                 <div>`;
             if (m1Coletada) {
@@ -653,13 +689,12 @@
             }
             html += `</div></div>`;
 
-            // --- LÓGICA DE FILA ENCADEADA (DA 2 ATÉ A 6) ---
             if (!m2Coletada) {
                 html += `
                 <div class="quest-item animate__animated animate__fadeIn">
                     <div class="quest-info">
                         <h4>🔥 Foco Diário</h4>
-                        <p>Conclua o Check-in Diário de hoje</p>
+                        <p>Conclua a Presença Diária de hoje</p>
                         <div class="quest-reward"><i class="fas fa-wallet"></i> +R$ 1,00 Saldo</div>
                     </div>
                     <div>`;
@@ -674,8 +709,8 @@
                 html += `
                 <div class="quest-item animate__animated animate__fadeInUp">
                     <div class="quest-info">
-                        <h4>👥 Líder Iniciante</h4>
-                        <p>Indique 1 amigo para a plataforma</p>
+                        <h4>👥 Convite Premium</h4>
+                        <p>Convide 1 amigo para o clube</p>
                         <div class="quest-reward"><i class="fas fa-wallet"></i> +R$ 2,00 Saldo</div>
                     </div>
                     <div>`;
@@ -690,8 +725,8 @@
                 html += `
                 <div class="quest-item animate__animated animate__fadeInUp">
                     <div class="quest-info">
-                        <h4>📢 Rede em Expansão</h4>
-                        <p>Alcance um total de 3 indicados diretos ativos</p>
+                        <h4>📢 Círculo em Expansão</h4>
+                        <p>Alcance um total de 3 convidados ativos</p>
                         <div class="quest-reward"><i class="fas fa-wallet"></i> +R$ 5,00 Saldo</div>
                     </div>
                     <div>`;
@@ -706,9 +741,9 @@
                 html += `
                 <div class="quest-item animate__animated animate__fadeInUp">
                     <div class="quest-info">
-                        <h4>💎 Magnata da Rede</h4>
-                        <p>Alcance um total de 5 indicados diretos ativos</p>
-                        <div class="quest-reward"><i class="fas fa-dharmachakra"></i> +10 Giros Grátis</div>
+                        <h4>💎 Magnata do Clube</h4>
+                        <p>Alcance um total de 5 convidados ativos</p>
+                        <div class="quest-reward"><i class="fas fa-gem"></i> +10 Giros Grátis</div>
                     </div>
                     <div>`;
                 if (totalIndicados >= 5) { 
@@ -722,8 +757,8 @@
                 html += `
                 <div class="quest-item animate__animated animate__fadeInUp">
                     <div class="quest-info">
-                        <h4>👑 Embaixador Nexus</h4>
-                        <p>Alcance a marca de 10 indicados diretos ativos</p>
+                        <h4>👑 Embaixador Aeterna</h4>
+                        <p>Alcance a marca de 10 convidados ativos</p>
                         <div class="quest-reward"><i class="fas fa-wallet"></i> +R$ 20,00 Saldo</div>
                     </div>
                     <div>`;
@@ -761,17 +796,17 @@
                         await addDoc(collection(db, "historico"), { 
                             userId: uid, 
                             valor: tipoMoeda === 'saldo' ? valorIncremento : 0, 
-                            tipo: `Missão: ${nomeHistorico}`, 
+                            tipo: `Benefício: ${nomeHistorico}`, 
                             data: Timestamp.now() 
                         });
 
                         Swal.fire({ 
-                            title: 'Missão Concluída!', 
+                            title: 'Privilégio Coletado!', 
                             text: textoSucesso, 
                             icon: 'success', 
                             background: '#060b19', 
                             color: '#fff', 
-                            confirmButtonColor: '#0052ff' 
+                            confirmButtonColor: '#ffd700' 
                         });
                     } catch(e) { 
                         console.error(e); 
@@ -781,12 +816,12 @@
                 };
             };
 
-            associarCliqueMissao('btn-m1', 'missao1Coletada', 1, 'giros', 'Novo Investimento', 'Você resgatou +1 Giro Grátis na Roleta!');
-            associarCliqueMissao('btn-m2', 'missao2Coletada', 1.00, 'saldo', 'Foco Diário', 'R$ 1,00 creditado! Próxima missão desbloqueada.');
-            associarCliqueMissao('btn-m3', 'missao3Coletada', 2.00, 'saldo', 'Líder Iniciante', 'R$ 2,00 creditados! Você desbloqueou o próximo nível.');
-            associarCliqueMissao('btn-m4', 'missao4Coletada', 5.00, 'saldo', 'Rede em Expansão', 'R$ 5,00 adicionados! Continue expandindo.');
-            associarCliqueMissao('btn-m5', 'missao5Coletada', 10, 'giros', 'Magnata da Rede', 'Sensacional! +10 Giros Grátis injetados na sua conta.');
-            associarCliqueMissao('btn-m6', 'missao6Coletada', 20.00, 'saldo', 'Embaixador Nexus', 'Parabéns! Você concluiu toda a jornada de missões e ganhou R$ 20,00.');
+            associarCliqueMissao('btn-m1', 'missao1Coletada', 1, 'giros', 'Novo Relógio', 'Você resgatou +1 Giro Grátis na Roleta!');
+            associarCliqueMissao('btn-m2', 'missao2Coletada', 1.00, 'saldo', 'Foco Diário', 'R$ 1,00 creditado! Próximo benefício desbloqueado.');
+            associarCliqueMissao('btn-m3', 'missao3Coletada', 2.00, 'saldo', 'Convite Premium', 'R$ 2,00 creditados! Você desbloqueou o próximo nível do clube.');
+            associarCliqueMissao('btn-m4', 'missao4Coletada', 5.00, 'saldo', 'Círculo em Expansão', 'R$ 5,00 adicionados! Continue expandindo seu networking.');
+            associarCliqueMissao('btn-m5', 'missao5Coletada', 10, 'giros', 'Magnata do Clube', 'Sensacional! +10 Giros Grátis injetados na sua conta.');
+            associarCliqueMissao('btn-m6', 'missao6Coletada', 20.00, 'saldo', 'Embaixador Aeterna', 'Parabéns! Você concluiu todos os requisitos e ganhou R$ 20,00 de valorização.');
         }
 
         async function carregarInvestimentos(uid, userData) {
@@ -820,7 +855,7 @@
                         <div class="active-plan-item animate__animated animate__fadeInUp">
                             <div style="display:flex; justify-content:space-between; align-items:center">
                                 <div>
-                                    <h4 style="font-size:0.95rem; font-weight:700; color:#fff"><i class="fas fa-layer-group" style="color:var(--cyan-neon); margin-right:6px;"></i> ${inv.plano}</h4>
+                                    <h4 style="font-size:0.95rem; font-weight:700; color:#fff"><i class="fas fa-stopwatch" style="color:var(--gold); margin-right:6px;"></i> ${inv.plano}</h4>
                                     <small style="color:var(--green-success); font-weight:600"><i class="fas fa-arrow-up"></i> + ${formatarMoeda(inv.rendimentoDiario)} / dia</small>
                                 </div>
                                 <div style="text-align:right">
@@ -838,16 +873,16 @@
                         </div>`;
                 });
 
-                document.getElementById('lista-investimentos').innerHTML = htmlContent || '<p style="text-align:center; color:var(--text-muted); font-size:0.82rem; margin-top:20px;">Nenhum contrato em andamento.</p>';
+                document.getElementById('lista-investimentos').innerHTML = htmlContent || '<p style="text-align:center; color:var(--text-muted); font-size:0.82rem; margin-top:20px;">Nenhuma peça em andamento.</p>';
                 document.getElementById('stat-investido').innerText = formatarMoeda(totalInvestido);
                 
                 if(userData) atualizarMissoes(userData, totalInvestido, fezInvestimentoHoje);
 
                 const vipTag = document.getElementById('vip-tag');
                 const vipNome = document.getElementById('vip-nome');
-                if (totalInvestido >= 2000) { vipTag.className = "vip-badge vip-diamante"; vipNome.innerText = "VIP Diamante"; }
-                else if (totalInvestido >= 500) { vipTag.className = "vip-badge vip-ouro"; vipNome.innerText = "VIP Ouro"; }
-                else { vipTag.className = "vip-badge vip-bronze"; vipNome.innerText = "VIP Bronze"; }
+                if (totalInvestido >= 2000) { vipTag.className = "vip-badge vip-diamante"; vipNome.innerText = "Colecionador Diamante"; }
+                else if (totalInvestido >= 500) { vipTag.className = "vip-badge vip-ouro"; vipNome.innerText = "Colecionador Ouro"; }
+                else { vipTag.className = "vip-badge vip-bronze"; vipNome.innerText = "Colecionador Bronze"; }
 
             } catch (e) { console.error("Erro investimentos:", e); }
         }
@@ -855,12 +890,12 @@
         async function processarLogicaNegocio(uid, userData) {
             if (!sessionStorage.getItem('notificacaoBoasVindas')) {
                 await Swal.fire({
-                    title: `<span style="color: var(--cyan-neon);">Nexus</span> Premium`,
-                    html: `<p style="color: #8a99ad; font-size: 0.9rem;">Olá <b>${userData.nome}</b>, bem-vindo à inteligência financeira.<br>Seus ciclos de rendimento rodam automaticamente.</p>`,
+                    title: `<span style="color: var(--gold);">Aeterna</span> Watches`,
+                    html: `<p style="color: #8a99ad; font-size: 0.9rem;">Saudações <b>${userData.nome}</b>, bem-vindo ao seu acervo premium.<br>O valor de suas peças é processado automaticamente pelo tempo.</p>`,
                     background: '#060b19',
                     color: '#fff',
-                    confirmButtonText: 'ENTRAR NO PAINEL',
-                    confirmButtonColor: '#0052ff',
+                    confirmButtonText: 'ENTRAR NO ACERVO',
+                    confirmButtonColor: '#ffd700',
                     borderRadius: '24px'
                 });
                 sessionStorage.setItem('notificacaoBoasVindas', 'true');
@@ -894,15 +929,15 @@
                         totalGanhos: increment(ganhosParaCreditar)
                     });
                     await addDoc(collection(db, "historico"), {
-                        userId: uid, valor: ganhosParaCreditar, tipo: 'Rendimento', data: Timestamp.now()
+                        userId: uid, valor: ganhosParaCreditar, tipo: 'Valorização de Acervo', data: Timestamp.now()
                     });
                     Swal.fire({ 
-                        title: 'Rendimentos Creditados!', 
-                        text: `R$ ${ganhosParaCreditar.toFixed(2)} sincronizados ao seu extrato.`, 
+                        title: 'Valorização Registrada!', 
+                        text: `R$ ${ganhosParaCreditar.toFixed(2)} foram adicionados ao seu patrimônio.`, 
                         icon: 'success',
                         background: '#060b19',
                         color: '#fff',
-                        confirmButtonColor: '#0052ff'
+                        confirmButtonColor: '#ffd700'
                     });
                 }
                 
