@@ -497,7 +497,6 @@
 
                         document.getElementById('home-nome').innerText = `Olá, ${userData.nome || "Investidor"}`;
                         
-                        // CORREÇÃO: Puxar a variável correta que alimenta a roleta (girosRoleta)
                         const girosAtuais = userData.girosRoleta || 0;
                         
                         const badgeRoleta = document.getElementById('roleta-badge');
@@ -618,7 +617,7 @@
             }
         }
 
-        function atualizarMissoes(userData, totalInvestido) {
+        function atualizarMissoes(userData, totalInvestido, fezInvestimentoHoje) {
             const hoje = getHojeString();
             const isFezHoje = (userData.ultimoCheckin === hoje);
             const container = document.getElementById('container-missoes');
@@ -636,18 +635,18 @@
 
             let html = '';
 
-            // --- MISSÃO 1: INVESTIDOR ATIVO ---
+            // --- MISSÃO 1: NOVO INVESTIMENTO (MUDANÇA DE REGRA) ---
             html += `
             <div class="quest-item">
                 <div class="quest-info">
-                    <h4>💼 Investidor Ativo</h4>
-                    <p>Mantenha pelo menos 1 contrato ativo</p>
+                    <h4>💼 Novo Investimento</h4>
+                    <p>Adquira 1 novo contrato no dia de hoje</p>
                     <div class="quest-reward"><i class="fas fa-dharmachakra"></i> +1 Giro Grátis</div>
                 </div>
                 <div>`;
             if (m1Coletada) {
                 html += `<span class="btn-quest-done"><i class="fas fa-check"></i> Coletado</span>`;
-            } else if (totalInvestido > 0) {
+            } else if (fezInvestimentoHoje) {
                 html += `<button class="btn-quest-claim" id="btn-m1">Resgatar</button>`;
             } else {
                 html += `<button class="btn-quest-claim" disabled>0/1</button>`;
@@ -751,7 +750,6 @@
                         let camposUpdate = {};
                         camposUpdate[campoDb] = true;
 
-                        // CORREÇÃO: Agora injeta corretamente na variável 'girosRoleta'
                         if (tipoMoeda === 'giros') {
                             camposUpdate['girosRoleta'] = increment(valorIncremento);
                         } else {
@@ -783,7 +781,7 @@
                 };
             };
 
-            associarCliqueMissao('btn-m1', 'missao1Coletada', 1, 'giros', 'Investidor Ativo', 'Você resgatou +1 Giro Grátis na Roleta!');
+            associarCliqueMissao('btn-m1', 'missao1Coletada', 1, 'giros', 'Novo Investimento', 'Você resgatou +1 Giro Grátis na Roleta!');
             associarCliqueMissao('btn-m2', 'missao2Coletada', 1.00, 'saldo', 'Foco Diário', 'R$ 1,00 creditado! Próxima missão desbloqueada.');
             associarCliqueMissao('btn-m3', 'missao3Coletada', 2.00, 'saldo', 'Líder Iniciante', 'R$ 2,00 creditados! Você desbloqueou o próximo nível.');
             associarCliqueMissao('btn-m4', 'missao4Coletada', 5.00, 'saldo', 'Rede em Expansão', 'R$ 5,00 adicionados! Continue expandindo.');
@@ -798,12 +796,20 @@
                 let totalInvestido = 0;
                 let htmlContent = "";
                 const agora = new Date();
+                let fezInvestimentoHoje = false;
+                const hojeLocal = getHojeString();
 
                 snap.forEach(docInv => {
                     const inv = docInv.data();
                     totalInvestido += Number(inv.valor || 0);
                     
                     const dataCriacao = inv.timestamp?.toDate() || agora;
+                    const dataInvFormatada = `${dataCriacao.getFullYear()}-${String(dataCriacao.getMonth() + 1).padStart(2, '0')}-${String(dataCriacao.getDate()).padStart(2, '0')}`;
+                    
+                    if (dataInvFormatada === hojeLocal) {
+                        fezInvestimentoHoje = true;
+                    }
+                    
                     const dataExpiracao = inv.dataExpiracao?.toDate();
                     let progresso = 0;
                     if (dataExpiracao) {
@@ -835,7 +841,7 @@
                 document.getElementById('lista-investimentos').innerHTML = htmlContent || '<p style="text-align:center; color:var(--text-muted); font-size:0.82rem; margin-top:20px;">Nenhum contrato em andamento.</p>';
                 document.getElementById('stat-investido').innerText = formatarMoeda(totalInvestido);
                 
-                if(userData) atualizarMissoes(userData, totalInvestido);
+                if(userData) atualizarMissoes(userData, totalInvestido, fezInvestimentoHoje);
 
                 const vipTag = document.getElementById('vip-tag');
                 const vipNome = document.getElementById('vip-nome');
