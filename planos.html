@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Investir - Nexus</title>
+    <title>Coleção - Nexus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -222,12 +222,12 @@
 
         .plans-list { display: flex; flex-direction: column; gap: 22px; }
 
-        /* CARDS DE INVESTIMENTO ULTRA-PREMIUM */
+        /* CARDS DE INVESTIMENTO ULTRA-PREMIUM (ESTILO RELÓGIO) */
         .plan-premium-card {
             background: var(--card-glass); 
             border: 1px solid var(--card-border);
             border-radius: 26px; 
-            padding: 25px; 
+            padding: 22px; 
             position: relative; 
             overflow: hidden;
             backdrop-filter: blur(12px);
@@ -236,7 +236,29 @@
             transition: all 0.4s ease;
         }
 
-        /* DESTAQUE DINÂMICO DO SIMULADOR */
+        /* IMAGEM DO RELÓGIO */
+        .watch-img-container {
+            width: 100%;
+            height: 190px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .watch-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .plan-premium-card:hover .watch-img-container img {
+            transform: scale(1.08);
+        }
+
         .plan-premium-card.matched-simulation {
             border: 1px solid rgba(0, 210, 255, 0.4);
             box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15);
@@ -253,11 +275,15 @@
         }
 
         .plan-premium-card h3 { 
-            font-size: 0.95rem; 
+            font-size: 1.05rem; 
             color: #fff; 
             font-weight: 800; 
             letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .plan-premium-card h3 i { color: var(--gold-accent); font-size: 0.9rem; }
         
         .badge-cycle {
             background: rgba(255,255,255,0.03);
@@ -272,10 +298,10 @@
         }
 
         .price-holder { 
-            font-size: 2.3rem; 
+            font-size: 2.2rem; 
             font-weight: 900; 
             color: #fff; 
-            margin-bottom: 22px; 
+            margin-bottom: 18px; 
             letter-spacing: -1px; 
             text-align: left;
             width: 100%;
@@ -346,12 +372,8 @@
             border: 1px solid var(--card-border);
         }
 
-        /* OPACIDADE REZUZIDA PARA PLANOS BLOQUEADOS */
-        .plan-premium-card.locked-card {
-            opacity: 0.45;
-        }
+        .plan-premium-card.locked-card { opacity: 0.45; }
 
-        /* NATIVE BOTTOM NAVIGATION HUB */
         .nav-bottom { 
             position: fixed; bottom: 0; left: 0; width: 100%; 
             background: #030611; display: flex; justify-content: space-around; 
@@ -376,19 +398,18 @@
 <body>
 
     <div class="header-section">
-        <h2 class="animate__animated animate__fadeInLeft"><span>Nexus</span> Mercado</h2>
-        <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.05s;">Aloque capital nos contratos de rendimento automatizado</p>
+        <h2 class="animate__animated animate__fadeInLeft"><span>Nexus</span> Watches</h2>
+        <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.05s;">Adquira peças de luxo exclusivas e receba rendimentos diários sobre sua coleção.</p>
     </div>
 
     <div class="account-balance-card animate__animated animate__fadeInDown">
-        <small>Saldo operacional disponível</small>
+        <small>Capital disponível para compras</small>
         <div id="user-balance" class="balance-value">R$ 0,00</div>
     </div>
 
-    <!-- SEÇÃO DO SIMULADOR GLASSMORPHISM -->
     <div class="simulator-card animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
         <div class="simulator-header">
-            <h4>Simulador Interativo</h4>
+            <h4>Simular Coleção</h4>
             <span class="badge-cycle" id="sim-tier-badge" style="color: var(--gold-accent); border-color: rgba(255,215,0,0.2);">Essencial</span>
         </div>
         <div class="simulated-value-display">
@@ -399,27 +420,27 @@
         </div>
         <div class="simulator-results-grid">
             <div class="sim-result-box">
-                <span>Rendimento Médio</span>
+                <span>Rendimento da Peça</span>
                 <strong id="sim-calc-diario" style="color: var(--green-profit);">R$ 20,00/dia</strong>
             </div>
             <div class="sim-result-box">
-                <span>Bônus Extra</span>
+                <span>Brinde Exclusivo</span>
                 <strong id="sim-calc-roleta" style="color: var(--cyan-neon);">+2 Giros Roleta</strong>
             </div>
         </div>
     </div>
 
     <div class="tier-navigation-bar animate__animated animate__fadeIn">
-        <button class="tier-tab-btn active" id="tab-essencial" onclick="switchTierTab('essencial')">Essenciais</button>
-        <button class="tier-tab-btn" id="tab-prime" onclick="switchTierTab('prime')">Prime</button>
-        <button class="tier-tab-btn" id="tab-exclusive" onclick="switchTierTab('exclusive')">Alta Perf.</button>
+        <button class="tier-tab-btn active" id="tab-essencial" onclick="switchTierTab('essencial')">Clássicos</button>
+        <button class="tier-tab-btn" id="tab-prime" onclick="switchTierTab('prime')">Premium</button>
+        <button class="tier-tab-btn" id="tab-exclusive" onclick="switchTierTab('exclusive')">Alta Relojoaria</button>
     </div>
 
     <div id="container-planos" class="plans-list animate__animated animate__fadeInUp"></div>
 
     <nav class="nav-bottom">
         <a href="home.html" class="nav-item"><i class="fas fa-home"></i><span>Início</span></a>
-        <a href="planos.html" class="nav-item active"><i class="fas fa-chart-pie"></i><span>Planos</span></a>
+        <a href="planos.html" class="nav-item active"><i class="fas fa-clock"></i><span>Boutique</span></a>
         <a href="indicacao.html" class="nav-item"><i class="fas fa-share-alt"></i><span>Indicar</span></a>
         <a href="perfil.html" class="nav-item"><i class="fas fa-user-alt"></i><span>Perfil</span></a>
     </nav>
@@ -447,19 +468,20 @@
     let activeTier = 'essencial';
     let currentSliderVal = 100;
 
+    // Atualizei o objeto para incluir as imagens dos relógios
     const listaPlanos = [
-        { nome: 'MINI', valor: 30, dias: 60, diario: 6, total: 360, ativo: true, tier: 'essencial' },
-        { nome: 'BRONZE', valor: 50, dias: 30, diario: 10, total: 300, ativo: true, tier: 'essencial' },
-        { nome: 'START', valor: 100, dias: 30, diario: 20, total: 600, ativo: true, tier: 'essencial' },
-        { nome: 'PRATA', valor: 200, dias: 30, diario: 40, total: 1200, ativo: true, tier: 'essencial' },
-        { nome: 'SPEED', valor: 350, dias: 30, diario: 70, total: 2100, ativo: true, tier: 'prime' },
-        { nome: 'OURO', valor: 450, dias: 30, diario: 90, total: 2700, ativo: true, tier: 'prime' },
-        { nome: 'ADVANCED', valor: 500, dias: 30, diario: 100, total: 3000, ativo: true, tier: 'prime' },
-        { nome: 'VITALITY', valor: 700, dias: 30, diario: 140, total: 4200, ativo: true, tier: 'prime' },
-        { nome: 'PREMIUM', valor: 1000, dias: 30, diario: 200, total: 6000, ativo: true, tier: 'exclusive' },
-        { nome: 'VIP', valor: 2000, dias: 30, diario: 400, total: 12000, ativo: true, tier: 'exclusive' },
-        { nome: 'ELITE', valor: 3000, dias: 30, diario: 0, total: 0, ativo: false, tier: 'exclusive' },
-        { nome: 'ULTIMATE', valor: 5000, dias: 30, diario: 0, total: 0, ativo: false, tier: 'exclusive' }
+        { nome: 'MINI', valor: 30, dias: 60, diario: 6, total: 360, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&q=80' },
+        { nome: 'BRONZE', valor: 50, dias: 30, diario: 10, total: 300, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600&q=80' },
+        { nome: 'START', valor: 100, dias: 30, diario: 20, total: 600, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=600&q=80' },
+        { nome: 'PRATA', valor: 200, dias: 30, diario: 40, total: 1200, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=600&q=80' },
+        { nome: 'SPEED', valor: 350, dias: 30, diario: 70, total: 2100, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&q=80' },
+        { nome: 'OURO', valor: 450, dias: 30, diario: 90, total: 2700, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1587836374828-cb4387d59d4c?w=600&q=80' },
+        { nome: 'ADVANCED', valor: 500, dias: 30, diario: 100, total: 3000, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=600&q=80' },
+        { nome: 'VITALITY', valor: 700, dias: 30, diario: 140, total: 4200, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=600&q=80' },
+        { nome: 'PREMIUM', valor: 1000, dias: 30, diario: 200, total: 6000, ativo: true, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1548171915-e0c00dbf6208?w=600&q=80' },
+        { nome: 'VIP', valor: 2000, dias: 30, diario: 400, total: 12000, ativo: true, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600&q=80' },
+        { nome: 'ELITE', valor: 3000, dias: 30, diario: 0, total: 0, ativo: false, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1622434641406-a158123450f9?w=600&q=80' },
+        { nome: 'ULTIMATE', valor: 5000, dias: 30, diario: 0, total: 0, ativo: false, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80' }
     ];
 
     onAuthStateChanged(auth, async (user) => {
@@ -501,41 +523,33 @@
                 const ultimoPag = dadosInv.ultimoPagamento.toDate();
                 const dataExp = dadosInv.dataExpiracao.toDate();
 
-                // Se o plano já expirou completamente
                 if (agora > dataExp) {
                     await updateDoc(doc(db, "investimentos", docInv.id), { status: "finalizado" });
                     continue;
                 }
 
-                // Calcula a diferença de tempo real desde o último pagamento recebido
                 const diffTime = agora - ultimoPag;
-                // Pega quantos ciclos de 24h exatos se passaram
-                const ciclosCompletos = Math.floor(diffTime / MILISSEGUNDOS_POR_DAY);
+                const ciclosCompletos = Math.floor(diffTime / MILISSEGUNDOS_POR_DIA);
 
-                // Só processa se tiver dado pelo menos 24h (1 ciclo)
                 if (ciclosCompletos >= 1) {
                     const valorPagar = dadosInv.rendimentoDiario * ciclosCompletos;
                     
-                    // Atualiza o saldo do usuário
                     await updateDoc(doc(db, "usuarios", uidUsuario), {
                         saldoLucro: increment(valorPagar),
                         totalEarned: increment(valorPagar)
                     });
 
-                    // Move o ponteiro do último pagamento adicionando exatamente os dias pagos
-                    // Isso evita perda de milissegundos nas próximas verificações de 24h
                     const novaDataPagamento = new Date(ultimoPag.getTime() + (ciclosCompletos * MILISSEGUNDOS_POR_DIA));
 
                     await updateDoc(doc(db, "investimentos", docInv.id), {
                         ultimoPagamento: Timestamp.fromDate(novaDataPagamento)
                     });
 
-                    // Registra no extrato/histórico
                     await addDoc(collection(db, "historico"), {
                         userId: uidUsuario,
                         valor: valorPagar,
                         tipo: "Rendimento",
-                        descricao: `Rendimento diário acumulado (${ciclosCompletos} dia(s)) - Plano ${dadosInv.plano}`,
+                        descricao: `Rendimento diário acumulado (${ciclosCompletos} dia(s)) - Relógio ${dadosInv.plano}`,
                         data: Timestamp.now()
                     });
                 }
@@ -551,7 +565,6 @@
             currentSliderVal = Number(e.target.value);
             document.getElementById('slider-render-val').innerText = currentSliderVal.toLocaleString('pt-BR');
             
-            // Encontrar plano mais próximo/adequado correspondente ao valor do slider
             let melhorPlano = listaPlanos[0];
             let menorDiferenca = Math.abs(currentSliderVal - listaPlanos[0].valor);
             
@@ -563,18 +576,15 @@
                 }
             });
 
-            // Atualizar os cards baseado na categoria do slider para dinamismo total
             if (activeTier !== melhorPlano.tier) {
                 activeTier = melhorPlano.tier;
                 document.querySelectorAll('.tier-tab-btn').forEach(btn => btn.classList.remove('active'));
                 document.getElementById(`tab-${activeTier}`).classList.add('active');
             }
 
-            // Atualizar textos dos resultados baseados no plano estimado do slider
             document.getElementById('sim-calc-diario').innerText = `R$ ${melhorPlano.diario.toFixed(2).replace('.', ',')}/dia`;
             document.getElementById('sim-tier-badge').innerText = melhorPlano.tier.toUpperCase();
             
-            // Gamificação: Cálculo de giros simulados baseados no ticket alocado
             let girosSimulados = 1;
             if (currentSliderVal >= 2000) girosSimulados = 10;
             else if (currentSliderVal >= 1000) girosSimulados = 5;
@@ -595,8 +605,11 @@
             const isMatched = planoDestacadoNome === p.nome;
             return `
             <div class="plan-premium-card ${p.ativo ? '' : 'locked-card'} ${isMatched ? 'matched-simulation' : ''}" id="card-plano-${p.nome}">
+                <div class="watch-img-container">
+                    <img src="${p.img}" alt="Relógio ${p.nome}">
+                </div>
                 <div class="card-top-row">
-                    <h3>CONTRATO ${p.nome}</h3>
+                    <h3><i class="fas fa-clock"></i> Coleção ${p.nome}</h3>
                     <div class="badge-cycle">${p.dias} Dias Úteis</div>
                 </div>
                 <div class="price-holder"><small>R$</small>${p.valor.toFixed(2).replace('.', ',')}</div>
@@ -616,7 +629,7 @@
                 </div>
                 <button class="${p.ativo ? 'btn-action-trigger' : 'btn-action-trigger btn-action-locked'}" 
                     onclick="${p.ativo ? `comprarPlano('${p.nome}', ${p.valor}, ${p.diario}, ${p.dias})` : ''}">
-                    ${p.ativo ? 'Ativar Contrato' : '<i class="fas fa-lock" style="margin-right:5px;"></i> Indisponível'}
+                    ${p.ativo ? 'Adquirir Peça' : '<i class="fas fa-lock" style="margin-right:5px;"></i> Indisponível'}
                 </button>
             </div>`;
         }).join('');
@@ -684,19 +697,19 @@
                 return Swal.fire({ 
                     icon: 'error', 
                     title: 'Saldo insuficiente', 
-                    text: 'Você precisa de saldo de depósito para ativar planos.',
+                    text: 'Você precisa de saldo de depósito para adquirir esta peça.',
                     background: '#060b19', color: '#fff', confirmButtonColor: '#0052ff'
                 });
             }
 
             const confirm = await Swal.fire({
-                title: 'Confirmar Ativação?',
-                text: `Deseja ativar o plano ${nome} por R$ ${valor.toFixed(2).replace('.', ',')}?`,
+                title: 'Confirmar Compra?',
+                text: `Deseja adquirir a coleção ${nome} por R$ ${valor.toFixed(2).replace('.', ',')}?`,
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#00e676',
                 cancelButtonColor: 'rgba(255,255,255,0.05)',
-                confirmButtonText: 'Confirmar Alocação',
+                confirmButtonText: 'Confirmar Compra',
                 cancelButtonText: 'Voltar',
                 background: '#060b19', color: '#fff'
             });
@@ -726,7 +739,7 @@
                     status: "ativo",
                     timestamp: Timestamp.now(),
                     dataExpiracao: Timestamp.fromDate(dataExp),
-                    ultimoPagamento: Timestamp.now() // Define o ponto de partida do ciclo de 24h
+                    ultimoPagamento: Timestamp.now() 
                 });
 
                 const userRef = doc(db, "usuarios", uidUsuario);
@@ -741,8 +754,8 @@
                 await addDoc(collection(db, "historico"), {
                     userId: uidUsuario,
                     valor: -valor, 
-                    tipo: "Plano Ativado", 
-                    descricao: `Ativação do Plano ${nome} (+${girosGanhos} Giros Roleta)`,
+                    tipo: "Aquisição de Relógio", 
+                    descricao: `Relógio da Coleção ${nome} (+${girosGanhos} Giros Roleta)`,
                     data: Timestamp.now()
                 });
 
@@ -754,7 +767,7 @@
 
                 await Swal.fire({ 
                     icon: 'success', 
-                    title: 'Contrato Ativado!', 
+                    title: 'Relógio Adquirido!', 
                     text: `Seu rendimento começará em 24h e você ganhou +${girosGanhos} giros na roleta!`, 
                     timer: 2500, 
                     showConfirmButton: false, 
@@ -767,7 +780,7 @@
             console.error("ERRO:", e);
             Swal.fire({ 
                 icon: 'error', 
-                title: 'Falha na Ativação', 
+                title: 'Falha na Compra', 
                 text: 'Houve um erro técnico. Verifique seu saldo.', 
                 background: '#060b19', color: '#fff' 
             });
