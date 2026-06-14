@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coleção - Nexus</title>
+    <title>Coleção - Aeterna Watches</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -14,12 +14,11 @@
             --bg-gradient: linear-gradient(180deg, #060b19 0%, #020408 100%);
             --card-glass: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.07);
-            --blue-primary: #0052ff;
-            --blue-gradient: linear-gradient(135deg, #0052ff 0%, #00a2ff 100%);
-            --cyan-neon: #00d2ff;
+            --gold: #ffd700;
+            --gold-gradient: linear-gradient(135deg, #ffd700 0%, #eab308 100%);
+            --gold-glow: rgba(255, 215, 0, 0.25);
             --text-muted: #8a99ad;
             --green-profit: #00e676;
-            --gold-accent: #ffd700;
         }
 
         * { 
@@ -48,15 +47,17 @@
             font-size: 1.6rem; 
             font-weight: 800; 
             letter-spacing: -0.5px;
+            text-transform: uppercase;
         }
         .header-section h2 span { 
-            color: var(--cyan-neon); 
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3); 
+            color: var(--gold); 
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); 
         }
         .header-section p { 
             font-size: 0.8rem; 
             color: var(--text-muted); 
             margin-top: 4px; 
+            line-height: 1.4;
         }
 
         /* BALANÇO FINTECH GLASSMORPHISM */
@@ -79,7 +80,7 @@
             right: -20%;
             width: 180px;
             height: 180px;
-            background: rgba(0, 82, 255, 0.15);
+            background: rgba(255, 215, 0, 0.08);
             filter: blur(45px);
             border-radius: 50%;
         }
@@ -101,8 +102,8 @@
 
         /* SIMULADOR DE INVESTIMENTOS INTERATIVO */
         .simulator-card {
-            background: rgba(0, 82, 255, 0.03);
-            border: 1px solid rgba(0, 210, 255, 0.15);
+            background: rgba(255, 215, 0, 0.02);
+            border: 1px solid rgba(255, 215, 0, 0.15);
             border-radius: 24px;
             padding: 22px 25px;
             margin-bottom: 30px;
@@ -120,7 +121,7 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: var(--cyan-neon);
+            color: var(--gold);
             font-weight: 700;
         }
         .slider-container {
@@ -141,9 +142,9 @@
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background: var(--cyan-neon);
+            background: var(--gold);
             cursor: pointer;
-            box-shadow: 0 0 15px var(--cyan-neon);
+            box-shadow: 0 0 15px var(--gold);
             transition: transform 0.1s ease;
         }
         .range-slider::-webkit-slider-thumb:active {
@@ -159,7 +160,7 @@
         }
         .simulated-value-display small {
             font-size: 1rem;
-            color: var(--cyan-neon);
+            color: var(--gold);
             margin-right: 5px;
         }
         .simulator-results-grid {
@@ -214,10 +215,10 @@
             letter-spacing: 0.5px;
         }
         .tier-tab-btn.active {
-            background: rgba(0, 210, 255, 0.08);
-            color: var(--cyan-neon);
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            text-shadow: 0 0 8px rgba(0, 210, 255, 0.2);
+            background: rgba(255, 215, 0, 0.08);
+            color: var(--gold);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
         }
 
         .plans-list { display: flex; flex-direction: column; gap: 22px; }
@@ -260,9 +261,9 @@
         }
 
         .plan-premium-card.matched-simulation {
-            border: 1px solid rgba(0, 210, 255, 0.4);
-            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.15);
-            background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(0, 82, 255, 0.03) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.15);
+            background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255, 215, 0, 0.01) 100%);
             transform: translateY(-2px);
         }
 
@@ -283,13 +284,13 @@
             align-items: center;
             gap: 8px;
         }
-        .plan-premium-card h3 i { color: var(--gold-accent); font-size: 0.9rem; }
+        .plan-premium-card h3 i { color: var(--gold); font-size: 0.9rem; }
         
         .badge-cycle {
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--card-border);
             font-size: 0.65rem; 
-            color: var(--cyan-neon);
+            color: var(--gold);
             font-weight: 700; 
             padding: 6px 14px;
             border-radius: 30px;
@@ -306,7 +307,7 @@
             text-align: left;
             width: 100%;
         }
-        .price-holder small {
+        .price-holder <small> {
             font-size: 0.95rem;
             color: var(--text-muted);
             font-weight: 600;
@@ -345,23 +346,23 @@
         
         /* BOTÕES DE ATIVAÇÃO PREMIUM */
         .btn-action-trigger { 
-            background: var(--blue-gradient); 
-            color: white; 
+            background: var(--gold-gradient); 
+            color: #020408; 
             border: none; 
             padding: 16px; 
             border-radius: 16px; 
-            font-weight: 700; 
+            font-weight: 800; 
             cursor: pointer; 
             width: 100%; 
             font-size: 0.88rem; 
             text-transform: uppercase; 
             letter-spacing: 0.6px; 
-            box-shadow: 0 8px 25px rgba(0, 82, 255, 0.25); 
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2); 
             transition: all 0.2s ease; 
         }
         .btn-action-trigger:active {
             transform: scale(0.98);
-            box-shadow: 0 4px 15px rgba(0, 82, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15);
         }
 
         .btn-action-locked { 
@@ -374,32 +375,47 @@
 
         .plan-premium-card.locked-card { opacity: 0.45; }
 
+        /* MENU INFERIOR COMBINANDO 100% COM A HOME */
         .nav-bottom { 
-            position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: #030611; display: flex; justify-content: space-around; 
-            padding: 10px 0; border-top: 1px solid var(--card-border); 
-            z-index: 10000; height: 75px; align-items: center;
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            background: rgba(2, 4, 8, 0.85); 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0; 
+            border-top: 1px solid rgba(255,255,255,0.06); 
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            z-index: 10000;
+            height: 76px;
+            align-items: center;
         }
         .nav-item { 
-            color: var(--text-muted); text-align: center; text-decoration: none; flex: 1; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            gap: 4px; transition: color 0.2s;
+            color: #4b5563; 
+            text-align: center; 
+            text-decoration: none; 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 5px;
+            padding: 6px 0;
+            transition: 0.2s;
         }
         .nav-item i { font-size: 1.25rem; }
-        .nav-item span { font-size: 0.65rem; font-weight: 500; }
-
-        .nav-item.active { color: white; }
-        .nav-item.active i { color: var(--cyan-neon); text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+        .nav-item span { font-size: 0.68rem; font-weight: 500; }
+        .nav-item.active { color: #fff; }
+        .nav-item.active i { color: var(--gold); filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4)); }
 
     </style>
 </head>
 <body>
 
     <div class="header-section">
-        <h2 class="animate__animated animate__fadeInLeft"><span>Nexus</span> Watches</h2>
-        <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.05s;">Adquira peças de luxo exclusivas e receba rendimentos diários sobre sua coleção.</p>
+        <h2 class="animate__animated animate__fadeInLeft"><span>Ae</span>terna Boutique</h2>
+        <p class="animate__animated animate__fadeInLeft" style="animation-delay: 0.05s;">Adquira peças de luxo exclusivas e receba valorizações diárias sobre sua coleção.</p>
     </div>
 
     <div class="account-balance-card animate__animated animate__fadeInDown">
@@ -410,7 +426,7 @@
     <div class="simulator-card animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
         <div class="simulator-header">
             <h4>Simular Coleção</h4>
-            <span class="badge-cycle" id="sim-tier-badge" style="color: var(--gold-accent); border-color: rgba(255,215,0,0.2);">Essencial</span>
+            <span class="badge-cycle" id="sim-tier-badge" style="color: var(--gold); border-color: rgba(255,215,0,0.2);">Clássicos</span>
         </div>
         <div class="simulated-value-display">
             <small>R$</small><span id="slider-render-val">100</span>
@@ -425,7 +441,7 @@
             </div>
             <div class="sim-result-box">
                 <span>Brinde Exclusivo</span>
-                <strong id="sim-calc-roleta" style="color: var(--cyan-neon);">+2 Giros Roleta</strong>
+                <strong id="sim-calc-roleta" style="color: var(--gold);">+2 Giros Roleta</strong>
             </div>
         </div>
     </div>
@@ -439,10 +455,10 @@
     <div id="container-planos" class="plans-list animate__animated animate__fadeInUp"></div>
 
     <nav class="nav-bottom">
-        <a href="home.html" class="nav-item"><i class="fas fa-home"></i><span>Início</span></a>
-        <a href="planos.html" class="nav-item active"><i class="fas fa-clock"></i><span>Boutique</span></a>
-        <a href="indicacao.html" class="nav-item"><i class="fas fa-share-alt"></i><span>Indicar</span></a>
-        <a href="perfil.html" class="nav-item"><i class="fas fa-user-alt"></i><span>Perfil</span></a>
+        <a href="home.html" class="nav-item"><i class="fas fa-gem"></i><span>Acervo</span></a>
+        <a href="planos.html" class="nav-item active"><i class="fas fa-stopwatch"></i><span>Peças</span></a>
+        <a href="indicacao.html" class="nav-item"><i class="fas fa-share-alt"></i><span>Convite</span></a>
+        <a href="perfil.html" class="nav-item"><i class="fas fa-user-alt"></i><span>Conta</span></a>
     </nav>
 
   <script type="module">
@@ -468,18 +484,18 @@
     let activeTier = 'essencial';
     let currentSliderVal = 100;
 
-    // Atualizei o objeto para incluir as imagens dos relógios
+    // Links de imagens atualizados + Fallback dinâmico integrado no HTML gerado
     const listaPlanos = [
-        { nome: 'MINI', valor: 30, dias: 60, diario: 6, total: 360, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600&q=80' },
+        { nome: 'MINI', valor: 30, dias: 60, diario: 6, total: 360, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80' },
         { nome: 'BRONZE', valor: 50, dias: 30, diario: 10, total: 300, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600&q=80' },
-        { nome: 'START', valor: 100, dias: 30, diario: 20, total: 600, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?w=600&q=80' },
-        { nome: 'PRATA', valor: 200, dias: 30, diario: 40, total: 1200, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=600&q=80' },
-        { nome: 'SPEED', valor: 350, dias: 30, diario: 70, total: 2100, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&q=80' },
-        { nome: 'OURO', valor: 450, dias: 30, diario: 90, total: 2700, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1587836374828-cb4387d59d4c?w=600&q=80' },
-        { nome: 'ADVANCED', valor: 500, dias: 30, diario: 100, total: 3000, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1594534475808-b18fc33b045e?w=600&q=80' },
-        { nome: 'VITALITY', valor: 700, dias: 30, diario: 140, total: 4200, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?w=600&q=80' },
-        { nome: 'PREMIUM', valor: 1000, dias: 30, diario: 200, total: 6000, ativo: true, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1548171915-e0c00dbf6208?w=600&q=80' },
-        { nome: 'VIP', valor: 2000, dias: 30, diario: 400, total: 12000, ativo: true, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=600&q=80' },
+        { nome: 'START', valor: 100, dias: 30, diario: 20, total: 600, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&q=80' },
+        { nome: 'PRATA', valor: 200, dias: 30, diario: 40, total: 1200, ativo: true, tier: 'essencial', img: 'https://images.unsplash.com/photo-1539874754764-5a96559165b0?w=600&q=80' },
+        { nome: 'SPEED', valor: 350, dias: 30, diario: 70, total: 2100, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1619134778706-7015533a6150?w=600&q=80' },
+        { nome: 'OURO', valor: 450, dias: 30, diario: 90, total: 2700, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=600&q=80' },
+        { nome: 'ADVANCED', valor: 500, dias: 30, diario: 100, total: 3000, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=600&q=80' },
+        { nome: 'VITALITY', valor: 700, dias: 30, diario: 140, total: 4200, ativo: true, tier: 'prime', img: 'https://images.unsplash.com/photo-1548171915-e0c00dbf6208?w=600&q=80' },
+        { nome: 'PREMIUM', valor: 1000, dias: 30, diario: 200, total: 6000, ativo: true, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1639006570490-79c0c53f1080?w=600&q=80' },
+        { nome: 'VIP', valor: 2000, dias: 30, diario: 400, total: 12000, ativo: true, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1629581678313-36cf745a9af9?w=600&q=80' },
         { nome: 'ELITE', valor: 3000, dias: 30, diario: 0, total: 0, ativo: false, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1622434641406-a158123450f9?w=600&q=80' },
         { nome: 'ULTIMATE', valor: 5000, dias: 30, diario: 0, total: 0, ativo: false, tier: 'exclusive', img: 'https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80' }
     ];
@@ -557,7 +573,6 @@
         } catch (error) { console.error("Erro nos rendimentos:", error); }
     }
 
-    // SISTEMA COMPLETO DO SIMULADOR DE INVESTIMENTOS INTERATIVO
     function initSimulator() {
         const slider = document.getElementById('investment-slider');
         
@@ -583,7 +598,7 @@
             }
 
             document.getElementById('sim-calc-diario').innerText = `R$ ${melhorPlano.diario.toFixed(2).replace('.', ',')}/dia`;
-            document.getElementById('sim-tier-badge').innerText = melhorPlano.tier.toUpperCase();
+            document.getElementById('sim-tier-badge').innerText = melhorPlano.tier === 'essencial' ? 'CLÁSSICOS' : melhorPlano.tier === 'prime' ? 'PREMIUM' : 'ALTA RELOJOARIA';
             
             let girosSimulados = 1;
             if (currentSliderVal >= 2000) girosSimulados = 10;
@@ -606,21 +621,21 @@
             return `
             <div class="plan-premium-card ${p.ativo ? '' : 'locked-card'} ${isMatched ? 'matched-simulation' : ''}" id="card-plano-${p.nome}">
                 <div class="watch-img-container">
-                    <img src="${p.img}" alt="Relógio ${p.nome}">
+                    <img src="${p.img}" alt="Relógio ${p.nome}" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fas fa-clock\' style=\'font-size:3.5rem;color:var(--gold);opacity:0.6;\'></i>';">
                 </div>
                 <div class="card-top-row">
-                    <h3><i class="fas fa-clock"></i> Coleção ${p.nome}</h3>
+                    <h3><i class="fas fa-gem"></i> Coleção ${p.nome}</h3>
                     <div class="badge-cycle">${p.dias} Dias Úteis</div>
                 </div>
-                <div class="price-holder"><small>R$</small>${p.valor.toFixed(2).replace('.', ',')}</div>
+                <div class="price-holder"><small style="font-size:0.95rem; color:var(--text-muted); font-weight:600; margin-right:4px;">R$</small>${p.valor.toFixed(2).replace('.', ',')}</div>
                 <div class="metrics-asymmetric-grid">
                     <div class="metric-cell">
                         <span>Retorno Diário</span>
-                        <strong style="${isMatched ? 'color: var(--cyan-neon);' : ''}">R$ ${p.diario.toFixed(2).replace('.', ',')}</strong>
+                        <strong style="${isMatched ? 'color: var(--gold);' : ''}">R$ ${p.diario.toFixed(2).replace('.', ',')}</strong>
                     </div>
                     <div class="metric-cell">
                         <span>Fração de Lucro</span>
-                        <strong style="color:var(--gold-accent)">+ ${(p.valor > 0 ? (p.diario / p.valor * 100) : 0).toFixed(1)}% /dia</strong>
+                        <strong style="color:var(--gold)">+ ${(p.valor > 0 ? (p.diario / p.valor * 100) : 0).toFixed(1)}% /dia</strong>
                     </div>
                 </div>
                 <div class="total-yield-box">
@@ -698,7 +713,7 @@
                     icon: 'error', 
                     title: 'Saldo insuficiente', 
                     text: 'Você precisa de saldo de depósito para adquirir esta peça.',
-                    background: '#060b19', color: '#fff', confirmButtonColor: '#0052ff'
+                    background: '#060b19', color: '#fff', confirmButtonColor: '#ffd700'
                 });
             }
 
@@ -768,7 +783,7 @@
                 await Swal.fire({ 
                     icon: 'success', 
                     title: 'Relógio Adquirido!', 
-                    text: `Seu rendimento começará em 24h e você ganhou +${girosGanhos} giros na roleta!`, 
+                    text: `Sua valorização começará em 24h e você ganhou +${girosGanhos} giros na roleta!`, 
                     timer: 2500, 
                     showConfirmButton: false, 
                     background: '#060b19', color: '#fff' 
