@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Perfil - Nexus</title>
+    <title>Meu Perfil - Aeterna</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -11,26 +11,26 @@
     
     <style>
         :root {
-            --bg-gradient: linear-gradient(180deg, #060b19 0%, #020408 100%);
-            --card-glass: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.07);
-            --blue-primary: #0052ff;
-            --blue-glow: rgba(0, 82, 255, 0.25);
-            --cyan-neon: #00d2ff;
-            --text-muted: #8a99ad;
-            --tg-blue: #0088cc;
-            --red-danger: #ff4b5c;
-            --green-success: #00e676;
+            --bg-gradient: linear-gradient(180deg, #0c0d12 0%, #050508 100%);
+            --card-glass: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --aeterna-gold: #e5c158;
+            --gold-gradient: linear-gradient(135deg, #f3c63f 0%, #b88728 100%);
+            --gold-glow: rgba(229, 193, 88, 0.2);
+            --text-muted: #94a3b8;
+            --tg-blue: #229ed9;
+            --red-danger: #ff4d4d;
+            --green-success: #10b981;
             
-            /* Cores das Patentes */
-            --rank-novato: #a1a1aa;
+            /* Cores de Patentes Classudas */
+            --rank-novato: #94a3b8;
             --rank-bronze: #cd7f32;
-            --rank-prata: #e2e8f0;
-            --rank-ouro: #ffd700;
-            --rank-platina: #00e676;
-            --rank-diamante: #00d2ff;
-            --rank-embaixador: #00d2ff;
-            --rank-tita: #ffd700;
+            --rank-prata: #cbd5e1;
+            --rank-ouro: #f59e0b;
+            --rank-platina: #10b981;
+            --rank-diamante: #38bdf8;
+            --rank-embaixador: #a855f7;
+            --rank-tita: #e5c158;
         }
 
         * { 
@@ -44,19 +44,19 @@
 
         body { 
             background: var(--bg-gradient); 
-            color: white; 
+            color: #f8fafc; 
             padding: 15px 20px; 
             padding-bottom: 120px; 
             min-height: 100vh; 
             overflow-x: hidden;
         }
 
-        /* FEED LIVE PROOF (FOMO) */
+        /* FEED LIVE PROOF (FOMO) - ESTILO AETERNA */
         .live-proof-banner {
-            background: rgba(0, 210, 255, 0.04);
-            border: 1px solid rgba(0, 210, 255, 0.15);
+            background: rgba(229, 193, 88, 0.03);
+            border: 1px solid rgba(229, 193, 88, 0.12);
             border-radius: 14px;
-            padding: 10px 15px;
+            padding: 11px 15px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -64,38 +64,39 @@
             font-size: 0.78rem;
             font-weight: 500;
             color: #e2e8f0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
         .live-proof-icon {
-            width: 8px;
-            height: 8px;
-            background: var(--green-success);
+            width: 7px;
+            height: 7px;
+            background: var(--aeterna-gold);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--green-success);
+            box-shadow: 0 0 10px var(--aeterna-gold);
             animation: pulse 1.5s infinite;
         }
         #live-proof-text b {
-            color: var(--cyan-neon);
+            color: var(--aeterna-gold);
         }
 
-        /* TÍTULO DA PÁGINA PREMIUM */
+        /* TÍTULO PREMIUM */
         .page-title {
             font-size: 1.6rem;
             font-weight: 800;
             margin: 5px 5px 20px 5px;
             letter-spacing: -0.5px;
+            color: #ffffff;
         }
-        .page-title b { color: var(--cyan-neon); text-shadow: 0 0 10px rgba(0, 210, 255, 0.3); }
+        .page-title b { color: var(--aeterna-gold); text-shadow: 0 0 15px rgba(229, 193, 88, 0.25); }
 
-        /* BLACK CARD DE INVESTIDOR GLASSMORPHISM */
+        /* BLACK CARD EXCLUSIVO DE INVESTIDOR */
         .investor-card {
-            background: var(--card-glass);
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(229,193,88,0.01) 100%);
             border-radius: 24px;
             padding: 25px;
             border: 1px solid var(--card-border);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05);
             position: relative;
             overflow: hidden;
             margin-bottom: 15px;
@@ -104,12 +105,12 @@
         .investor-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: rgba(0, 210, 255, 0.12);
-            filter: blur(50px);
+            top: -40%;
+            right: -15%;
+            width: 180px;
+            height: 180px;
+            background: rgba(229, 193, 88, 0.08);
+            filter: blur(45px);
             border-radius: 50%;
         }
 
@@ -125,8 +126,8 @@
         .profile-avatar {
             width: 58px;
             height: 58px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 2px solid var(--rank-novato);
+            background: rgba(255, 255, 255, 0.01);
+            border: 1.5px solid var(--rank-novato);
             border-radius: 18px;
             display: flex;
             align-items: center;
@@ -136,20 +137,20 @@
             transition: all 0.5s ease;
         }
 
-        .user-meta h2 { font-size: 1.15rem; font-weight: 700; text-transform: capitalize; color: #fff; }
+        .user-meta h2 { font-size: 1.15rem; font-weight: 700; text-transform: capitalize; color: #fff; letter-spacing: -0.3px; }
         .user-meta p { color: var(--text-muted); font-size: 0.8rem; margin-top: 2px; }
         
         .rank-badge {
             display: inline-block;
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 4px 9px;
+            border-radius: 7px;
             font-size: 0.65rem;
-            font-weight: 800;
+            font-weight: 700;
             text-transform: uppercase;
-            margin-top: 5px;
-            letter-spacing: 0.5px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 6px;
+            letter-spacing: 0.6px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
             color: #fff;
             transition: all 0.5s ease;
         }
@@ -164,23 +165,24 @@
             font-size: 0.68rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.6px;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             font-weight: 600;
         }
 
         .balance-block span {
-            font-size: 1.4rem;
+            font-size: 1.45rem;
             font-weight: 800;
-            color: #fff;
+            color: #ffffff;
+            letter-spacing: -0.5px;
         }
 
         /* CARD DO PLANO DE CARREIRA */
         .career-card {
             background: var(--card-glass);
             border-radius: 20px;
-            padding: 15px 20px;
+            padding: 16px 20px;
             border: 1px solid var(--card-border);
             margin-bottom: 15px;
         }
@@ -191,34 +193,34 @@
             margin-bottom: 12px;
         }
         .career-header small { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;}
-        .career-header span { font-size: 0.75rem; font-weight: 600; color: var(--cyan-neon); }
+        .career-header span { font-size: 0.75rem; font-weight: 600; color: var(--aeterna-gold); }
         
         .progress-capsule {
             width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.03);
+            height: 6px;
+            background: rgba(255,255,255,0.02);
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.04);
         }
         .progress-bar-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--blue-primary), var(--cyan-neon));
+            background: var(--gold-gradient);
             border-radius: 10px;
-            box-shadow: 0 0 10px var(--cyan-neon);
+            box-shadow: 0 0 12px var(--aeterna-gold);
             transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* O COFRE NEXUS (LOCKED STAKING) */
+        /* COFRE FORTE AETERNA */
         .vault-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(0, 210, 255, 0.02) 100%);
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(229, 193, 88, 0.01) 100%);
             border-radius: 24px;
             padding: 22px;
-            border: 1px solid rgba(0, 210, 255, 0.15);
+            border: 1px solid rgba(229, 193, 88, 0.12);
             margin-bottom: 15px;
             position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
         }
         .vault-header {
             display: flex;
@@ -229,21 +231,21 @@
         .vault-icon-box {
             width: 44px;
             height: 44px;
-            background: rgba(0, 210, 255, 0.08);
-            border: 1px solid rgba(0, 210, 255, 0.25);
+            background: rgba(229, 193, 88, 0.05);
+            border: 1px solid rgba(229, 193, 88, 0.2);
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--cyan-neon);
+            color: var(--aeterna-gold);
             font-size: 1.1rem;
-            animation: pulse-neon 2s infinite ease-in-out;
+            animation: pulse-gold 2s infinite ease-in-out;
         }
         .vault-title-meta h3 { font-size: 1rem; font-weight: 700; color: #fff; }
         .vault-title-meta p { font-size: 0.75rem; color: var(--text-muted); }
 
         .vault-status-box {
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.25);
             border-radius: 14px;
             padding: 12px;
             display: flex;
@@ -255,50 +257,51 @@
             font-size: 0.85rem;
             font-weight: 700;
             color: #fff;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
-        .vault-timer i { color: var(--cyan-neon); margin-right: 5px; }
+        .vault-timer i { color: var(--aeterna-gold); margin-right: 5px; }
 
         .btn-vault-action {
-            background: linear-gradient(90deg, #0052ff, #00d2ff);
+            background: var(--gold-gradient);
             border: none;
-            color: #fff;
-            padding: 8px 14px;
+            color: #000;
+            padding: 9px 16px;
             border-radius: 10px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 210, 255, 0.25);
+            box-shadow: 0 4px 15px rgba(229, 193, 88, 0.2);
+            transition: 0.2s;
         }
         .btn-vault-action:active { transform: scale(0.96); }
 
-        /* NOVO BOTÃO DO SISTEMA DE METAS */
+        /* BOTÃO DO SISTEMA DE METAS */
         .goals-system-card {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.03) 0%, rgba(255, 215, 0, 0.01) 100%);
+            background: linear-gradient(135deg, rgba(229, 193, 88, 0.04) 0%, rgba(229, 193, 88, 0.01) 100%);
             border-radius: 24px;
             padding: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            border: 1px solid rgba(229, 193, 88, 0.15);
             margin-bottom: 25px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
             cursor: pointer;
             transition: 0.2s;
         }
-        .goals-system-card:active { transform: scale(0.98); background: rgba(255, 215, 0, 0.06); }
+        .goals-system-card:active { transform: scale(0.98); background: rgba(229, 193, 88, 0.06); }
         .goals-header { display: flex; align-items: center; gap: 15px; }
         .goals-icon-box {
-            width: 44px; height: 44px; background: rgba(255, 215, 0, 0.08);
-            border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 14px;
+            width: 44px; height: 44px; background: rgba(229, 193, 88, 0.06);
+            border: 1px solid rgba(229, 193, 88, 0.25); border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            color: var(--rank-ouro); font-size: 1.2rem;
+            color: var(--aeterna-gold); font-size: 1.2rem;
         }
 
-        /* TELA MODAL DO SISTEMA DE METAS & RANKING */
+        /* MODAL CENTRAL AETERNA CARREIRA */
         .metas-screen-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #020408; z-index: 20000; padding: 20px;
+            background: #06070a; z-index: 20000; padding: 20px;
             overflow-y: auto; display: none; padding-bottom: 40px;
         }
         .metas-screen-header {
@@ -310,23 +313,23 @@
             align-items: center; justify-content: center; cursor: pointer;
         }
 
-        /* NAVEGAÇÃO DE ABAS INTERNAS */
+        /* ABAS INTERNAS */
         .metas-tabs-nav {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-            background: rgba(255,255,255,0.02); padding: 5px; border-radius: 14px;
+            background: rgba(255,255,255,0.01); padding: 5px; border-radius: 14px;
             border: 1px solid var(--card-border); margin-bottom: 25px;
         }
         .tab-btn {
-            padding: 12px; border: none; background: none; color: var(--text-muted);
+            padding: 13px; border: none; background: none; color: var(--text-muted);
             font-weight: 700; font-size: 0.85rem; border-radius: 10px; cursor: pointer;
             transition: 0.2s; text-align: center;
         }
-        .tab-btn.active { background: var(--blue-primary); color: white; box-shadow: 0 4px 12px var(--blue-glow); }
+        .tab-btn.active { background: var(--gold-gradient); color: #000; box-shadow: 0 4px 15px var(--gold-glow); }
         
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* LISTA DE METAS / PATENTES */
+        /* LISTA DE METAS */
         .meta-reward-card {
             background: var(--card-glass); border: 1px solid var(--card-border);
             border-radius: 20px; padding: 18px; margin-bottom: 12px;
@@ -342,27 +345,27 @@
         .meta-details span { font-size: 0.75rem; font-weight: 700; color: var(--green-success); display: block; margin-top: 4px; }
         
         .btn-claim-reward {
-            padding: 8px 14px; border-radius: 10px; border: none; font-size: 0.75rem;
-            font-weight: 700; cursor: pointer; color: white; background: var(--blue-primary);
+            padding: 9px 15px; border-radius: 10px; border: none; font-size: 0.75rem;
+            font-weight: 700; cursor: pointer; color: #000; background: var(--gold-gradient);
         }
-        .btn-claim-reward:disabled { background: rgba(255,255,255,0.05); color: var(--text-muted); cursor: not-allowed; }
-        .btn-claim-reward.claimed { background: rgba(0, 230, 118, 0.1); color: var(--green-success); border: 1px solid rgba(0, 230, 118, 0.2); }
+        .btn-claim-reward:disabled { background: rgba(255,255,255,0.04); color: var(--text-muted); cursor: not-allowed; }
+        .btn-claim-reward.claimed { background: rgba(16, 185, 129, 0.08); color: var(--green-success); border: 1px solid rgba(16, 185, 129, 0.2); }
 
-        /* LAYOUT DO RANKING */
+        /* LAYOUT RANKING LUXO */
         .ranking-list-box { background: var(--card-glass); border: 1px solid var(--card-border); border-radius: 20px; overflow: hidden; }
         .ranking-row {
-            display: flex; align-items: center; padding: 15px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.03); justify-content: space-between;
+            display: flex; align-items: center; padding: 16px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.02); justify-content: space-between;
         }
         .ranking-row:last-child { border-bottom: none; }
         .rank-position { font-weight: 800; font-size: 0.9rem; width: 30px; color: var(--text-muted); }
-        .ranking-row:nth-child(1) .rank-position { color: #ffd700; font-size: 1.1rem; }
-        .ranking-row:nth-child(2) .rank-position { color: #e2e8f0; font-size: 1.05rem; }
-        .ranking-row:nth-child(3) .rank-position { color: #cd7f32; font-size: 1rem; }
+        .ranking-row:nth-child(1) .rank-position { color: #f59e0b; font-size: 1.1rem; }
+        .ranking-row:nth-child(2) .rank-position { color: #cbd5e1; font-size: 1.05rem; }
+        .ranking-row:nth-child(3) .rank-position { color: #b45309; font-size: 1rem; }
         .rank-user-name { font-weight: 600; font-size: 0.9rem; flex-grow: 1; text-transform: capitalize; }
-        .rank-user-val { font-weight: 800; font-size: 0.9rem; color: var(--cyan-neon); }
+        .rank-user-val { font-weight: 800; font-size: 0.9rem; color: var(--aeterna-gold); }
 
-        /* CATEGORIAS EM CÁPSULAS MODULARES */
+        /* CÁPSULAS MODULARES DE MENU */
         .menu-category-title {
             font-size: 0.72rem;
             font-weight: 700;
@@ -386,51 +389,52 @@
             display: flex;
             align-items: center;
             padding: 18px 20px;
-            color: #efeff1;
+            color: #f1f5f9;
             text-decoration: none;
             transition: background 0.2s;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
         .menu-row-item:last-child { border-bottom: none; }
-        .menu-row-item:active { background: rgba(255,255,255,0.04); }
+        .menu-row-item:active { background: rgba(255,255,255,0.03); }
 
         .menu-row-item .icon-wrapper {
             width: 36px;
             height: 36px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             border: 1px solid var(--card-border);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
-            color: var(--cyan-neon);
+            color: var(--aeterna-gold);
             font-size: 0.95rem;
         }
 
         .menu-row-item.social-tg .icon-wrapper { 
             color: var(--tg-blue); 
-            background: rgba(0, 136, 204, 0.05); 
-            border-color: rgba(0, 136, 204, 0.15);
+            background: rgba(34, 158, 217, 0.05); 
+            border-color: rgba(34, 158, 217, 0.15);
         }
 
         .menu-row-item span { font-size: 0.9rem; font-weight: 600; }
-        .menu-row-item .chevron-right { margin-left: auto; color: #4b5563; font-size: 0.8rem; }
+        .menu-row-item .chevron-right { margin-left: auto; color: #475569; font-size: 0.8rem; }
 
         .btn-float-tg {
             position: fixed; bottom: 95px; right: 20px;
             width: 50px; height: 50px; background-color: var(--tg-blue);
             color: #FFF; border-radius: 50%; display: flex;
             align-items: center; justify-content: center;
-            font-size: 1.3rem; box-shadow: 0px 8px 25px rgba(0, 136, 204, 0.3);
+            font-size: 1.3rem; box-shadow: 0px 8px 25px rgba(34, 158, 217, 0.3);
             z-index: 999; text-decoration: none;
             transition: 0.2s;
         }
         .btn-float-tg:active { transform: scale(0.9); }
 
+        /* BARRA DE NAVEGAÇÃO COMPACTA PREMIUM */
         .nav-bottom { 
             position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: #030611; display: flex; justify-content: space-around; 
+            background: #06070a; display: flex; justify-content: space-around; 
             padding: 10px 0; border-top: 1px solid var(--card-border); 
             z-index: 10000; height: 75px; align-items: center;
             backdrop-filter: blur(20px);
@@ -445,19 +449,19 @@
         .nav-item span { font-size: 0.65rem; font-weight: 500; }
 
         .nav-item.active { color: white; }
-        .nav-item.active i { color: var(--cyan-neon); text-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
+        .nav-item.active i { color: var(--aeterna-gold); text-shadow: 0 0 10px rgba(229, 193, 88, 0.4); }
 
         .btn-logout-danger { 
             width: 100%; padding: 16px; border-radius: 18px; 
-            border: 1px solid rgba(255, 75, 92, 0.15); background: rgba(255, 75, 92, 0.02); 
+            border: 1px solid rgba(255, 77, 77, 0.15); background: rgba(255, 77, 77, 0.01); 
             color: var(--red-danger); font-weight: 700; cursor: pointer;
             font-size: 0.9rem; transition: 0.2s; margin-top: 10px;
         }
-        .btn-logout-danger:active { background: rgba(255, 75, 92, 0.08); transform: scale(0.98); }
+        .btn-logout-danger:active { background: rgba(255, 77, 77, 0.06); transform: scale(0.98); }
 
-        @keyframes pulse-neon {
-            0%, 100% { box-shadow: 0 0 5px rgba(0, 210, 255, 0.2); }
-            50% { box-shadow: 0 0 15px rgba(0, 210, 255, 0.5); }
+        @keyframes pulse-gold {
+            0%, 100% { box-shadow: 0 0 5px rgba(229, 193, 88, 0.15); }
+            50% { box-shadow: 0 0 15px rgba(229, 193, 88, 0.4); }
         }
     </style>
 </head>
@@ -467,15 +471,13 @@
         <i class="fab fa-telegram-plane"></i>
     </a>
 
-    <!-- FEED LIVE PROOF DINÂMICO -->
     <div class="live-proof-banner animate__animated animate__fadeInDown">
         <div class="live-proof-icon"></div>
-        <div id="live-proof-text">Conectando ao feed de transações Nexus...</div>
+        <div id="live-proof-text">Conectando ao feed de transações Aeterna...</div>
     </div>
 
     <h1 class="page-title">Configurações<b>.</b></h1>
 
-    <!-- CARD PRINCIPAL DO INVESTIDOR -->
     <div class="investor-card animate__animated animate__fadeInDown" style="animation-delay: 0.05s;">
         <div class="card-header-user">
             <div class="profile-avatar" id="user-avatar"><i class="fas fa-user"></i></div>
@@ -492,12 +494,11 @@
             </div>
             <div class="balance-block" style="text-align: right;">
                 <small>Rede Ativa</small>
-                <span id="stat-indicados" style="color: #fff;"><i class="fas fa-users" style="font-size:0.85rem; margin-right:6px; color: var(--cyan-neon);"></i>0</span>
+                <span id="stat-indicados" style="color: #fff;"><i class="fas fa-users" style="font-size:0.85rem; margin-right:6px; color: var(--aeterna-gold);"></i>0</span>
             </div>
         </div>
     </div>
 
-    <!-- BARRA DE PROGRESSO DE CARREIRA -->
     <div class="career-card animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
         <div class="career-header">
             <small>Progresso de Carreira (Ativos)</small>
@@ -508,12 +509,11 @@
         </div>
     </div>
 
-    <!-- O COFRE NEXUS (STAKING) -->
     <div class="vault-card animate__animated animate__fadeInDown" style="animation-delay: 0.12s;">
         <div class="vault-header">
             <div class="vault-icon-box"><i class="fas fa-vault"></i></div>
             <div class="vault-title-meta">
-                <h3>Cofre Forte Nexus</h3>
+                <h3>Cofre Forte Aeterna</h3>
                 <p>Tranque lucros por 7 dias e ganhe +15% bônus</p>
             </div>
         </div>
@@ -525,7 +525,6 @@
         </div>
     </div>
 
-    <!-- NOVO COMPONENTE: BOTÃO DO SISTEMA DE METAS & PATENTES -->
     <div class="goals-system-card animate__animated animate__fadeInDown" style="animation-delay: 0.14s;" id="btn-trigger-metas">
         <div class="goals-header">
             <div class="goals-icon-box"><i class="fas fa-trophy"></i></div>
@@ -572,11 +571,10 @@
 
     <button class="btn-logout-danger animate__animated animate__fadeInUp" style="animation-delay: 0.25s;" id="btnLogout">Desconectar da Conta</button>
 
-    <!-- ABA MODAL DO SISTEMA DE METAS POR CONVITE E RANKING -->
     <div class="metas-screen-overlay" id="metas-module-screen">
         <div class="metas-screen-header">
             <button class="btn-back-profile" id="btn-close-metas"><i class="fas fa-arrow-left"></i></button>
-            <h2 style="font-size: 1.3rem; font-weight: 800;">Central Nexus Carreira<b>.</b></h2>
+            <h2 style="font-size: 1.3rem; font-weight: 800;">Central Aeterna Carreira<b>.</b></h2>
         </div>
 
         <div class="metas-tabs-nav">
@@ -584,19 +582,15 @@
             <button class="tab-btn" id="tab-trigger-ranking">Ranking Global</button>
         </div>
 
-        <!-- CONTEÚDO DA ABA DE METAS -->
         <div class="tab-content active" id="content-goals">
             <div id="metas-list-container">
-                <!-- Inserido dinamicamente via JS -->
-            </div>
+                </div>
         </div>
 
-        <!-- CONTEÚDO DA ABA DE RANKING -->
         <div class="tab-content" id="content-ranking">
             <p style="font-size:0.75rem; color: var(--text-muted); margin-bottom:15px; padding-left:5px;">Top 10 investidores com maior faturamento da rede:</p>
             <div class="ranking-list-box" id="ranking-list-container">
-                <!-- Inserido dinamicamente via JS -->
-            </div>
+                </div>
         </div>
     </div>
 
@@ -630,7 +624,6 @@
         let totalIndicadosGlobal = 0;
         let metasResgatadas = [];
 
-        // Estrutura das metas/patentes solicitadas (PREMIAÇÕES AUMENTADAS)
         const configuracaoMetas = [
             { id: "bronze", nome: "Patente Bronze", convites: 5, premio: 50.00, cor: "var(--rank-bronze)", icone: "fa-medal" },
             { id: "prata", nome: "Patente Prata", convites: 15, premio: 150.00, cor: "var(--rank-prata)", icone: "fa-award" },
@@ -670,12 +663,12 @@
 
 
         // --- ENGINE DO FEED DE ATIVIDADES LIVE PROOF (FOMO) ---
-        const listaNomesFOMO = ["marcos_silva", "julia_resende", "felipe.lucros", "gabriel_nexus", "ana_carol", "rafael_invest", "bruno_b", "amanda_m", "diego_stk"];
+        const listaNomesFOMO = ["marcos_silva", "julia_resende", "felipe.lucros", "gabriel_aeterna", "ana_carol", "rafael_invest", "bruno_b", "amanda_m", "diego_stk"];
         const listaAcoesFOMO = [
-            { txt: "acabou de ativar o CONTRATO VIP! ⚡", cor: "var(--cyan-neon)" },
+            { txt: "acabou de ativar o CONTRATO VIP! ⚡", cor: "var(--aeterna-gold)" },
             { txt: "solicitou um saque de R$ 320,00 via PIX! 💸", cor: "var(--green-success)" },
-            { txt: "recebeu R$ 45,00 de comissão de rede! 🎉", cor: "var(--rank-tita)" },
-            { txt: "trancou R$ 500,00 no Cofre Forte! 🔒", cor: "#b967ff" }
+            { txt: "recebeu R$ 45,00 de comissão de rede! 🎉", cor: "var(--aeterna-gold)" },
+            { txt: "trancou R$ 500,00 no Cofre Forte! 🔒", cor: "var(--aeterna-gold)" }
         ];
 
         function rodarFeedFOMO() {
@@ -756,7 +749,6 @@
 
         // --- RENDERIZADOR DINÂMICO DO SISTEMA DE METAS & RANKING ---
         async function carregarDadosMetasERanking() {
-            // Renderizar Abas de Metas
             const containerMetas = document.getElementById('metas-list-container');
             containerMetas.innerHTML = "";
 
@@ -768,7 +760,7 @@
                 if (jaResgatado) {
                     btnHtml = `<button class="btn-claim-reward claimed" disabled><i class="fas fa-check-circle"></i> Resgatado</button>`;
                 } else if (completouMeta) {
-                    btnHtml = `<button class="btn-claim-reward" data-id="${meta.id}" data-premio="${meta.premio}" style="background: var(--green-success);">Resgatar R$ ${meta.premio.toFixed(2)}</button>`;
+                    btnHtml = `<button class="btn-claim-reward" data-id="${meta.id}" data-premio="${meta.premio}" style="background: var(--gold-gradient); color: #000;">Resgatar R$ ${meta.premio.toFixed(2)}</button>`;
                 } else {
                     btnHtml = `<button class="btn-claim-reward" disabled>${totalIndicadosGlobal}/${meta.convites}</button>`;
                 }
@@ -777,13 +769,13 @@
                 cardMeta.className = "meta-reward-card";
                 cardMeta.innerHTML = `
                     <div class="meta-info-side">
-                        <div class="meta-badge-icon" style="background: rgba(255,255,255,0.02); border: 1px solid ${meta.cor}; color: ${meta.cor};">
+                        <div class="meta-badge-icon" style="background: rgba(255,255,255,0.01); border: 1px solid ${meta.cor}; color: ${meta.cor};">
                             <i class="fas ${meta.icone}"></i>
                         </div>
                         <div class="meta-details">
                             <h4>${meta.nome}</h4>
                             <p>Meta: Convidar ${meta.convites} usuários ativos</p>
-                            <span>Bônus: +R$ ${meta.premio.toFixed(2)}</span>
+                            <span style="color: var(--aeterna-gold);">Bônus: +R$ ${meta.premio.toFixed(2)}</span>
                         </div>
                     </div>
                     <div>${btnHtml}</div>
@@ -791,7 +783,6 @@
                 containerMetas.appendChild(cardMeta);
             });
 
-            // Atribuir eventos de clique para os botões de resgatar ativos
             document.querySelectorAll('.btn-claim-reward:not([disabled])').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
                     const idMeta = e.target.getAttribute('data-id');
@@ -800,7 +791,6 @@
                 });
             });
 
-            // Renderizar Lista do Ranking Real do Firestore
             const containerRanking = document.getElementById('ranking-list-container');
             containerRanking.innerHTML = `<p style="text-align:center; padding:20px; font-size:0.8rem; color:var(--text-muted);">Processando dados da blockchain...</p>`;
             
@@ -814,7 +804,7 @@
                 
                 querySnapshot.forEach((docSnap) => {
                     const dadosRank = docSnap.data();
-                    const nomeFormatado = dadosRank.nome || "Usuário Anonimo";
+                    const nomeFormatado = dadosRank.nome || "Usuário Anônimo";
                     const saldoRank = dadosRank.saldoLucro !== undefined ? Number(dadosRank.saldoLucro) : 0;
 
                     const linhaRank = document.createElement('div');
@@ -833,7 +823,6 @@
             }
         }
 
-        // Processar o resgate no Firebase
         async function processarResgatePremioMeta(idMeta, valorPremio) {
             try {
                 const userRef = doc(db, "usuarios", currentUserUid);
@@ -848,12 +837,11 @@
                     icon: 'success',
                     title: 'Patente Desbloqueada!',
                     text: `Você resgatou com sucesso o bônus de R$ ${valorPremio.toFixed(2)} referente a esta meta!`,
-                    background: '#060b19',
+                    background: '#0c0d12',
                     color: '#fff',
-                    confirmButtonColor: '#0052ff'
+                    confirmButtonColor: '#e5c158'
                 });
 
-                // Atualiza estados locais e recarrega views
                 saldoGlobal = novoSaldo;
                 metasResgatadas.push(idMeta);
                 document.getElementById('stat-saldo').innerText = `R$ ${saldoGlobal.toFixed(2)}`;
@@ -861,7 +849,7 @@
 
             } catch(e) {
                 console.error("Erro ao computar prêmio de meta:", e);
-                Swal.fire({ icon: 'error', title: 'Erro Operacional', text: 'Não foi possível processar seu resgate.', background: '#060b19', color: '#fff' });
+                Swal.fire({ icon: 'error', title: 'Erro Operacional', text: 'Não foi possível processar seu resgate.', background: '#0c0d12', color: '#fff' });
             }
         }
 
@@ -873,8 +861,9 @@
 
             if (dadosCofre && dadosCofre.ativo) {
                 btnVault.innerText = "Trancado";
-                btnVault.style.background = "rgba(255,255,255,0.05)";
-                btnVault.style.border = "1px solid rgba(255,255,255,0.1)";
+                btnVault.style.background = "rgba(255,255,255,0.03)";
+                btnVault.style.border = "1px solid rgba(255,255,255,0.08)";
+                btnVault.style.color = "var(--text-muted)";
                 btnVault.style.boxShadow = "none";
                 btnVault.disabled = true;
 
@@ -901,10 +890,9 @@
             }
         }
 
-        // Evento do clique de ativação do Cofre Forte
         document.getElementById('btn-vault').addEventListener('click', async () => {
             if (saldoGlobal < 20) {
-                Swal.fire({ icon: 'error', title: 'Saldo Insuficiente', text: 'Você precisa de pelo menos R$ 20,00 de saldo livre para usar o Cofre.', background: '#060b19', color: '#fff' });
+                Swal.fire({ icon: 'error', title: 'Saldo Insuficiente', text: 'Você precisa de pelo menos R$ 20,00 de saldo livre para usar o Cofre.', background: '#0c0d12', color: '#fff' });
                 return;
             }
 
@@ -914,8 +902,8 @@
                 input: 'number',
                 inputAttributes: { min: 20, step: 1 },
                 showCancelButton: true,
-                confirmButtonColor: '#0052ff',
-                background: '#060b19',
+                confirmButtonColor: '#e5c158',
+                background: '#0c0d12',
                 color: '#fff',
                 confirmButtonText: 'Confirmar e Trancar 🔒'
             });
@@ -923,7 +911,7 @@
             if (valorTrancar) {
                 const valorNum = Number(valorTrancar);
                 if (valorNum > saldoGlobal || valorNum < 20) {
-                    Swal.fire({ icon: 'error', title: 'Valor inválido', text: 'Verifique se o valor não supera seu saldo disponível ou é menor que R$ 20.', background: '#060b19', color: '#fff' });
+                    Swal.fire({ icon: 'error', title: 'Valor inválido', text: 'Verifique se o valor não supera seu saldo disponível ou é menor que R$ 20.', background: '#0c0d12', color: '#fff' });
                     return;
                 }
 
@@ -942,7 +930,7 @@
                         cofreNexus: objetoCofre
                     });
 
-                    Swal.fire({ icon: 'success', title: 'Cofre Trancado!', text: `Seus R$ ${valorNum.toFixed(2)} foram assegurados com sucesso e renderão +15%!`, background: '#060b19', color: '#fff' });
+                    Swal.fire({ icon: 'success', title: 'Cofre Trancado!', text: `Seus R$ ${valorNum.toFixed(2)} foram assegurados com sucesso e renderão +15%!`, background: '#0c0d12', color: '#fff' });
                     setTimeout(() => location.reload(), 1500);
 
                 } catch (e) {
@@ -970,9 +958,8 @@
                         document.getElementById('display-nome').innerText = d.nome || "Usuário";
                         document.getElementById('stat-saldo').innerText = `R$ ${saldoGlobal.toFixed(2)}`;
                         
-                        document.getElementById('stat-indicados').innerHTML = `<i class="fas fa-users" style="font-size:0.85rem; margin-right:6px; color: var(--cyan-neon);"></i>${totalIndicadosGlobal}`;
+                        document.getElementById('stat-indicados').innerHTML = `<i class="fas fa-users" style="font-size:0.85rem; margin-right:6px; color: var(--aeterna-gold);"></i>${totalIndicadosGlobal}`;
                         
-                        // Atualizar Sistemas Modulares
                         atualizarPatenteCarreira(totalIndicadosGlobal);
                         gerenciarCofreInterface(d.cofreNexus);
                     }
@@ -990,11 +977,11 @@
                 text: "Você precisará fazer login novamente para acessar seus lucros.",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#ff4b5c',
-                cancelButtonColor: 'rgba(255,255,255,0.05)',
+                confirmButtonColor: '#ff4d4d',
+                cancelButtonColor: 'rgba(255,255,255,0.03)',
                 confirmButtonText: 'Sim, sair',
                 cancelButtonText: 'Cancelar',
-                background: '#060b19',
+                background: '#0c0d12',
                 color: '#fff'
             });
 
