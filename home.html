@@ -67,6 +67,64 @@
         .logo-home span { color: var(--gold); text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
         .user-greeting h2 { font-size: 1.05rem; font-weight: 700; color: #fff; margin-top: 2px; text-transform: capitalize; }
 
+        /* BANNER PRINCIPAL DA LOJA (TOPO) */
+        .main-store-banner {
+            margin: 5px 20px 20px 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.03) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .main-store-banner-content {
+            z-index: 2;
+            position: relative;
+        }
+        .main-store-banner h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .main-store-banner p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+        .btn-store {
+            background: linear-gradient(135deg, #ffd700, #eab308);
+            color: #0f172a;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transition: 0.2s;
+        }
+        .btn-store:active { transform: scale(0.95); }
+        .main-store-banner-icon {
+            font-size: 5rem;
+            color: rgba(255, 215, 0, 0.08);
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+
         .portfolio-card { 
             margin: 0 20px; 
             background: var(--card-glass); 
@@ -113,7 +171,7 @@
         .action-btn i { font-size: 1.4rem; color: var(--gold); filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3)); }
         .action-btn:active { transform: scale(0.95); background: rgba(255,255,255,0.06); }
 
-        /* BANNER DA ROLETA MOVIDO PARA O TOPO */
+        /* BANNER DA ROLETA (DE VOLTA AO MEIO) */
         .roulette-banner {
             margin: 5px 20px 20px 20px;
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 215, 0, 0.02) 100%);
@@ -257,7 +315,6 @@
             transition: width 1s linear;
         }
 
-        /* HISTÓRIA DA LOJA - RELÓGIOS PREMIUM */
         .story-section {
             margin: 30px 20px 40px 20px;
             padding: 25px;
@@ -334,7 +391,6 @@
         .nav-item span { font-size: 0.68rem; font-weight: 500; }
         .nav-item.active { color: #fff; }
         .nav-item.active i { color: var(--gold); filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4)); }
-        @keyframes pulseAlert { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
     </style>
 </head>
 <body>
@@ -359,18 +415,14 @@
         <a href="perfil.html" style="color: var(--text-muted); font-size: 1.5rem; transition: 0.2s;"><i class="fas fa-user-circle"></i></a>
     </div>
 
-    <a href="roleta.html" class="roulette-banner animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
-        <div class="roulette-left">
-            <div class="roulette-icon-wrapper">
-                <i class="fas fa-gem"></i>
-            </div>
-            <div class="roulette-details">
-                <h4>Roleta Exclusiva</h4>
-                <p>Multiplique seu acervo de luxo</p>
-            </div>
+    <div class="main-store-banner animate__animated animate__fadeInDown" style="animation-delay: 0.1s;">
+        <div class="main-store-banner-content">
+            <h3>Coleção Aeterna</h3>
+            <p>Elegância atemporal e precisão absoluta em cada detalhe de luxo.</p>
+            <button class="btn-store" onclick="window.location.href='planos.html'">Explorar Peças</button>
         </div>
-        <div id="roleta-badge" class="roulette-badge">0 Giros</div>
-    </a>
+        <i class="fas fa-clock main-store-banner-icon"></i>
+    </div>
 
     <div class="portfolio-card animate__animated animate__fadeIn" style="animation-delay: 0.2s;">
         <div class="portfolio-header">
@@ -396,7 +448,20 @@
         <a href="saque.html" class="action-btn"><i class="fas fa-coins"></i>Resgatar</a>
     </div>
 
-    <div class="checkin-banner animate__animated animate__zoomIn" style="animation-delay: 0.4s;">
+    <a href="roleta.html" class="roulette-banner animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+        <div class="roulette-left">
+            <div class="roulette-icon-wrapper">
+                <i class="fas fa-gem"></i>
+            </div>
+            <div class="roulette-details">
+                <h4>Roleta Exclusiva</h4>
+                <p>Multiplique seu acervo de luxo</p>
+            </div>
+        </div>
+        <div id="roleta-badge" class="roulette-badge">0 Giros</div>
+    </a>
+
+    <div class="checkin-banner animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
         <div class="checkin-header">
             <div class="checkin-title"><i class="fas fa-fire"></i> Presença Diária</div>
             <div id="badge-streak" class="vip-badge" style="background: rgba(255, 152, 0, 0.15); color: #ff9800; border: 1px solid rgba(255,152,0,0.3); box-shadow: none;">0 Dias</div>
@@ -409,7 +474,7 @@
         </button>
     </div>
 
-    <div class="quests-banner animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
+    <div class="quests-banner animate__animated animate__zoomIn" style="animation-delay: 0.6s;">
         <div class="quests-header">
             <div class="quests-title"><i class="fas fa-tasks"></i> Clube de Vantagens</div>
             <div class="vip-badge" style="background: rgba(0, 210, 255, 0.1); color: var(--cyan-neon); border: 1px solid rgba(0,210,255,0.2); box-shadow: none;">Bônus</div>
@@ -420,7 +485,7 @@
     <h3 style="padding: 0 25px 5px 25px; font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-top: 10px;">Meu Acervo Privado</h3>
     <div id="lista-investimentos" class="plans-stack"></div>
 
-    <div class="story-section animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
+    <div class="story-section animate__animated animate__fadeInUp" style="animation-delay: 0.7s;">
         <i class="fas fa-clock"></i>
         <h3>O Legado Aeterna</h3>
         <p>Desde o nosso início, a <strong>Aeterna</strong> tem sido o sinônimo da verdadeira e alta relojoaria. Nós acreditamos que um relógio premium faz mais do que apenas medir o tempo: ele o eterniza. Nossas peças são cuidadosamente selecionadas para indivíduos que exigem precisão impecável, design inconfundível e o verdadeiro peso da exclusividade no pulso.</p>
