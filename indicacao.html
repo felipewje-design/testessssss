@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicar - Nexus</title>
+    <title>Convite - Aeterna Boutique</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -15,14 +15,13 @@
             --bg-gradient: linear-gradient(180deg, #060b19 0%, #020408 100%);
             --card-glass: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.07);
-            --blue-primary: #0052ff;
-            --blue-glow: rgba(0, 82, 255, 0.4);
-            --cyan-neon: #00d2ff;
+            --gold: #ffd700;
+            --gold-gradient: linear-gradient(135deg, #ffd700 0%, #eab308 100%);
+            --gold-glow: rgba(255, 215, 0, 0.25);
             --green-success: #00e676;
             --text-muted: #8a99ad;
             --bronze: #ff9800;
             --silver: #e0e0e0;
-            --gold: #ffd700;
         }
 
         * { 
@@ -61,6 +60,7 @@
         }
         .header a:hover { opacity: 1; transform: translateX(-5px); }
 
+        /* CARD GLASSMORPHISM NOVO DESIGN */
         .invite-card {
             background: var(--card-glass);
             backdrop-filter: blur(16px);
@@ -69,7 +69,7 @@
             border-radius: 24px;
             border: 1px solid var(--card-border);
             margin-bottom: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
             position: relative;
             overflow: hidden;
         }
@@ -81,12 +81,13 @@
             left: -50px;
             width: 150px;
             height: 150px;
-            background: var(--blue-primary);
+            background: var(--gold);
             filter: blur(100px);
-            opacity: 0.15;
+            opacity: 0.08;
             z-index: -1;
         }
 
+        /* BADGES DE LIDERANÇA ATUALIZADOS */
         .level-badge {
             display: inline-block; 
             padding: 6px 16px; 
@@ -102,7 +103,7 @@
         
         .lvl-bronze { background: linear-gradient(135deg, #b87333, #ff9800); color: white; }
         .lvl-prata { background: linear-gradient(135deg, #9ca3af, #e5e7eb); color: #0f172a; }
-        .lvl-ouro { background: linear-gradient(135deg, #eab308, #ffd700); color: #0f172a; }
+        .lvl-ouro { background: var(--gold-gradient); color: #020408; text-shadow: 0 0 5px rgba(255,255,255,0.3); }
 
         h2 { 
             font-size: 1.6rem; 
@@ -114,6 +115,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* BARRA DE PROGRESSO EM OURO */
         .progress-container { 
             background: rgba(255,255,255,0.05); 
             border-radius: 50px; 
@@ -124,11 +126,11 @@
             position: relative;
         }
         .progress-bar { 
-            background: linear-gradient(90deg, var(--blue-primary), var(--cyan-neon)); 
+            background: var(--gold-gradient); 
             height: 100%; 
             width: 0%; 
             transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 15px var(--blue-glow);
+            box-shadow: 0 0 15px var(--gold-glow);
             border-radius: 50px;
         }
         .progress-text { 
@@ -140,11 +142,12 @@
             justify-content: space-between;
         }
 
+        /* CAIXA DO LINK DE CONVITE */
         .link-box {
             background: rgba(0, 0, 0, 0.4); 
             padding: 16px 20px;
             border-radius: 16px; 
-            border: 1px solid rgba(0, 210, 255, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.15);
             display: flex; 
             justify-content: space-between; 
             align-items: center;
@@ -153,13 +156,13 @@
             transition: all 0.3s ease;
         }
         .link-box:hover {
-            border-color: rgba(0, 210, 255, 0.5);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.1), inset 0 2px 10px rgba(0,0,0,0.3);
+            border-color: rgba(255, 215, 0, 0.35);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.05), inset 0 2px 10px rgba(0,0,0,0.3);
         }
 
         #referral-link { 
             font-size: 0.85rem; 
-            color: var(--cyan-neon); 
+            color: #fff; 
             overflow: hidden; 
             text-overflow: ellipsis; 
             white-space: nowrap; 
@@ -169,24 +172,24 @@
             font-weight: 600;
         }
         .btn-copy { 
-            background: var(--blue-primary); 
+            background: var(--gold-gradient); 
             border: none; 
-            color: white; 
+            color: #020408; 
             cursor: pointer; 
             font-size: 1rem; 
             padding: 10px 14px; 
             border-radius: 10px;
+            font-weight: 700;
             transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 10px rgba(0, 82, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.15);
         }
         .btn-copy:hover { 
             transform: translateY(-2px); 
-            background: #0043d6;
-            box-shadow: 0 6px 15px rgba(0, 82, 255, 0.5);
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
         }
         .btn-copy:active { transform: scale(0.95); }
 
-        /* Alterado para Grid 2x2 para melhor encaixe das novas métricas */
+        /* METRIC GRID */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
         .stat-item { 
             background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); 
@@ -211,8 +214,9 @@
         }
         .stat-item span { font-weight: 800; font-size: 1.25rem; color: white; }
         .stat-item #bonus-ganho { color: var(--green-success); text-shadow: 0 0 15px rgba(0, 230, 118, 0.2); }
-        .stat-item #total-rede-ativos { color: var(--cyan-neon); }
+        .stat-item #total-rede-ativos { color: var(--gold); }
 
+        /* LINHAS DE GERAÇÃO ESTILO FINTECH LUXO */
         .levels-table {
             background: rgba(0,0,0,0.25);
             border-radius: 18px;
@@ -238,11 +242,10 @@
             margin-left: -8px;
             margin-right: -8px;
         }
-        .level-row i { color: var(--cyan-neon); margin-right: 12px; width: 22px; text-align: center; font-size: 1.1rem; }
+        .level-row i { color: var(--gold); margin-right: 12px; width: 22px; text-align: center; font-size: 1.1rem; }
         .level-row span { font-size: 0.9rem; flex: 1; font-weight: 500; color: #e2e8f0; }
         .level-row .count-label { font-size: 0.75rem; color: var(--text-muted); margin-right: 8px; }
         
-        /* Ajuste do tamanho da caixa para suportar o texto "Total / Ativos" */
         .level-row .count-val { 
             font-size: 0.85rem; 
             color: white; 
@@ -262,7 +265,7 @@
             border-radius: 18px; 
             text-align: left; 
             font-size: 0.85rem; 
-            border-left: 4px solid var(--blue-primary); 
+            border-left: 4px solid var(--gold); 
             margin-top: 20px; 
             line-height: 1.6;
             color: #9ca3af;
@@ -272,6 +275,7 @@
         }
         .info-step b { color: white; font-weight: 600; }
 
+        /* MENU INFERIOR ALINHADO 100% COM O APP */
         .nav-bottom { 
             position: fixed; 
             bottom: 0; 
@@ -296,18 +300,17 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            gap: 6px;
+            gap: 5px;
             padding: 6px 0;
-            border-radius: 12px;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.2s;
         }
-        .nav-item i { font-size: 1.3rem; transition: transform 0.3s; }
-        .nav-item span { font-size: 0.7rem; font-weight: 600; }
+        .nav-item i { font-size: 1.25rem; transition: transform 0.3s; }
+        .nav-item span { font-size: 0.68rem; font-weight: 500; }
 
         .nav-item.active { color: #fff; }
         .nav-item.active i { 
-            color: var(--cyan-neon); 
-            filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.6));
+            color: var(--gold); 
+            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
             transform: translateY(-2px);
         }
         .nav-item:not(.active):hover i { color: #9ca3af; }
@@ -330,7 +333,7 @@
         </div>
         <div class="progress-text">
             <span id="progress-label">Carregando metas...</span>
-            <span id="progress-percent" style="color: var(--cyan-neon); font-weight: 700;">0%</span>
+            <span id="progress-percent" style="color: var(--gold); font-weight: 700;">0%</span>
         </div>
 
         <div class="link-box">
@@ -374,23 +377,23 @@
                 <span><i class="fas fa-network-wired"></i> 3ª Geração</span>
                 <span class="count-label">Convidados / Ativos:</span>
                 <div class="count-val" id="count-l3">0 / 0</div>
-                <strong>1%</strong>
+                <strong>2%</strong>
             </div>
         </div>
     </div>
 
     <div class="info-step animate__animated animate__fadeInUp animate__delay-1s">
-        <h4 style="margin-top: 0; color: var(--cyan-neon); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+        <h4 style="margin-top: 0; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
             <i class="fas fa-rocket"></i> Como funcionam as metas?
         </h4>
         Seu nível de liderança evolui com o crescimento de <b>toda a sua equipe</b> combinada (Gerações 1, 2 e 3). Alcance novos marcos para qualificar sua conta para o plano de carreira e desbloquear novas recompensas na plataforma.
     </div>
 
     <nav class="nav-bottom animate__animated animate__fadeInUp">
-        <a href="home.html" class="nav-item"><i class="fas fa-home"></i><span>Início</span></a>
-        <a href="planos.html" class="nav-item"><i class="fas fa-chart-pie"></i><span>Planos</span></a>
-        <a href="indicacao.html" class="nav-item active"><i class="fas fa-share-alt"></i><span>Indicar</span></a>
-        <a href="perfil.html" class="nav-item"><i class="fas fa-user-alt"></i><span>Perfil</span></a>
+        <a href="home.html" class="nav-item"><i class="fas fa-gem"></i><span>Acervo</span></a>
+        <a href="planos.html" class="nav-item"><i class="fas fa-stopwatch"></i><span>Peças</span></a>
+        <a href="indicacao.html" class="nav-item active"><i class="fas fa-share-alt"></i><span>Convite</span></a>
+        <a href="perfil.html" class="nav-item"><i class="fas fa-user-alt"></i><span>Conta</span></a>
     </nav>
 
     <script type="module">
@@ -428,28 +431,23 @@
                     if(snap.exists()){
                         const data = snap.data();
                         
-                        // Resgate de Convidados Totais por Geração
                         const l1 = data.indicadosCount || 0;
                         const l2 = data.indicadosL2Count || 0;
                         const l3 = data.indicadosL3Count || 0;
 
-                        // Resgate de Convidados Ativos por Geração
                         const l1Ativos = data.indicadosAtivosCount || 0;
                         const l2Ativos = data.indicadosL2AtivosCount || 0;
                         const l3Ativos = data.indicadosL3AtivosCount || 0;
 
                         const totalComissoes = data.totalComissoes || 0;
                         
-                        // Cálculos consolidados da estrutura
                         const totalEquipe = l1 + l2 + l3;
                         const totalAtivos = l1Ativos + l2Ativos + l3Ativos;
                         
-                        // Atualiza as caixas de texto com "Total / Ativos"
                         document.getElementById('count-l1').innerText = `${l1} / ${l1Ativos}`;
                         document.getElementById('count-l2').innerText = `${l2} / ${l2Ativos}`;
                         document.getElementById('count-l3').innerText = `${l3} / ${l3Ativos}`;
                         
-                        // Atualiza o painel superior (Grid)
                         document.getElementById('total-rede').innerText = totalEquipe;
                         document.getElementById('total-rede-ativos').innerText = totalAtivos;
                         document.getElementById('total-diretos').innerText = l1;
@@ -490,7 +488,7 @@
                 badge.innerText = "Líder Ouro";
                 badge.className = "level-badge lvl-ouro animate__animated animate__pulse";
                 porcentagem = 100;
-                label.innerHTML = "✨ Equipe de Elite alcançada!";
+                label.innerHTML = "✨ Estrutura de Elite alcançada!";
             }
 
             const finalPercent = Math.min(porcentagem, 100).toFixed(0);
@@ -532,16 +530,18 @@
             const iconOriginal = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-check"></i>';
             btn.style.background = 'var(--green-success)';
+            btn.style.color = '#fff';
             
             setTimeout(() => {
                 btn.innerHTML = iconOriginal;
-                btn.style.background = 'var(--blue-primary)';
+                btn.style.background = 'var(--gold-gradient)';
+                btn.style.color = '#020408';
             }, 2000);
 
             Swal.fire({
                 icon: 'success',
                 title: 'Link Copiado!',
-                text: 'Compartilhe e ganhe comissões em 3 níveis!',
+                text: 'Compartilhe e ganhe comissões em até 3 níveis!',
                 background: '#060b19',
                 color: '#fff',
                 timer: 2500,
