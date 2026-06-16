@@ -60,7 +60,7 @@
         }
 
         .grid-inputs { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px; }
-        @media(min-width: 600px) { .grid-inputs { grid-template-columns: 1fr 1fr; } }
+        @media(min-width: 600px) { .grid-inputs { grid-template-columns: 1fr 1fr 1fr; } }
 
         .form-group { display: flex; flex-direction: column; text-align: left; width: 100%; }
         .form-group label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
@@ -130,6 +130,7 @@
             <span class="status-online"><i class="fas fa-circle" style="font-size: 0.65rem; margin-right: 5px;"></i> Sistema Online</span>
         </div>
 
+        <!-- MÓDULO OTIMIZADO: GERENCIADOR DE CÓDIGOS PROMOCIONAIS -->
         <div class="admin-section">
             <div class="section-title"><i class="fas fa-ticket-alt"></i> Gerenciador de Códigos Promocionais Diários</div>
             <div class="grid-inputs">
@@ -138,13 +139,18 @@
                     <input type="text" id="admin-code-name" placeholder="EX: BRONZEHOJE20" style="text-transform: uppercase;">
                 </div>
                 <div class="form-group">
-                    <label>Limite Máximo de Ativações</label>
-                    <input type="number" id="admin-code-limit" placeholder="EX: 50 pessoas">
+                    <label>Valor do Bônus (R$)</label>
+                    <input type="number" id="admin-code-value" placeholder="EX: 10.00" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label>Limite de Ativações</label>
+                    <input type="number" id="admin-code-limit" placeholder="EX: 50">
                 </div>
             </div>
             <button class="btn-submit" id="btn-generate">Gerar e Ativar Código Diário ⚡</button>
         </div>
 
+        <!-- MURAL & BÔNUS DE CADASTRO -->
         <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
             <div class="admin-section">
                 <div class="section-title"><i class="fas fa-bullhorn"></i> Mural de Avisos Global</div>
@@ -163,6 +169,7 @@
             </div>
         </div>
 
+        <!-- DASHBOARD ESTATÍSTICAS -->
         <div class="stats-grid">
             <div class="stat-card">
                 <i class="fas fa-wallet"></i>
@@ -181,6 +188,7 @@
             </div>
         </div>
 
+        <!-- MODIFICAR USUÁRIOS -->
         <div class="admin-section">
             <div class="section-title"><i class="fas fa-user-cog"></i> Localizar e Modificar Usuário</div>
             <div style="display: flex; gap: 10px; margin-bottom: 5px;">
@@ -208,6 +216,7 @@
             </div>
         </div>
 
+        <!-- TABELA RECENTES -->
         <div class="admin-section">
             <div class="section-title"><i class="fas fa-history"></i> Clientes Recentes</div>
             <div class="table-wrapper">
@@ -218,6 +227,7 @@
             </div>
         </div>
 
+        <!-- SOLICITAÇÕES DE SAQUE -->
         <div class="admin-section">
             <div class="section-title"><i class="fas fa-hand-holding-usd"></i> Ordens de Saque Pendentes</div>
             <div class="table-wrapper">
@@ -286,21 +296,27 @@
             carregarBonusConfig();
         }
 
-        // LÓGICA DO MÓDULO DE CÓDIGOS PROMOCIONAIS DIÁRIOS
+        // LÓGICA DO MÓDULO DE CÓDIGOS PROMOCIONAIS (BLINDADA CONTRA ERROS NO CLIENTE)
         document.getElementById('btn-generate').addEventListener('click', async () => {
             const codigo = document.getElementById('admin-code-name').value.trim().toUpperCase();
+            const valorBonus = document.getElementById('admin-code-value').value.trim();
             const limite = document.getElementById('admin-code-limit').value.trim();
 
-            if (!codigo || !limite || Number(limite) <= 0) {
-                Swal.fire({ icon: 'error', title: 'Campos Inválidos', text: 'Preencha o nome do código e o limite de pessoas corretamente.', background: '#0c0d12', color: '#fff', confirmButtonColor: '#e5c158' });
+            if (!codigo || !valorBonus || isNaN(valorBonus) || Number(valorBonus) < 0 || !limite || Number(limite) <= 0) {
+                Swal.fire({ icon: 'error', title: 'Campos Inválidos', text: 'Preencha o nome, valor do bônus e o limite corretamente.', background: '#0c0d12', color: '#fff', confirmButtonColor: '#e5c158' });
                 return;
             }
 
             try {
+                // Mapeia todas as nomenclaturas comuns para garantir compatibilidade com seu script cliente
                 await setDoc(doc(db, "codigos_promocionais", codigo), {
                     codigo: codigo,
+                    valor: Number(valorBonus),          // Padrão mais comum
+                    recompensa: Number(valorBonus),     // Fallback estrutural
+                    bonus: Number(valorBonus),          // Fallback estrutural 2
                     limiteUso: Number(limite),
                     usadosCount: 0,
+                    status: "ativo",                    // Evita falhas de regras de "cupom inativo"
                     usuariosQueUsaram: [],
                     dataCriacao: new Date().getTime()
                 });
@@ -308,13 +324,14 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Código Ativado!',
-                    text: `O cupom "${codigo}" está ativo para as primeiras ${limite} pessoas!`,
+                    text: `O cupom "${codigo}" (R$ ${parseFloat(valorBonus).toFixed(2)}) está ativo para as primeiras ${limite} pessoas!`,
                     background: '#0c0d12',
                     color: '#fff',
                     confirmButtonColor: '#e5c158'
                 });
 
                 document.getElementById('admin-code-name').value = "";
+                document.getElementById('admin-code-value').value = "";
                 document.getElementById('admin-code-limit').value = "";
 
             } catch (error) {
@@ -385,7 +402,7 @@
             await updateDoc(doc(db, "usuarios", userEncontradoId), { status: novoStatus });
             document.getElementById('btn-search-user').click();
             carregarUsuariosNaTabela();
-            Toast.fire({ icon: 'success', title: 'Status atualizado!' });
+            Toast.fire({ icon: 'success', title: 'Status updated!' });
         });
 
         document.getElementById('btn-update-balance').addEventListener('click', async () => {
@@ -446,7 +463,7 @@
             } catch(e) {}
         }
 
-        // GERENCIAMENTO AVANÇADO DE CRÉDITO E HISTÓRICO FINANCEIRO (SAQUES)
+        // GERENCIAMENTO DE HISTÓRICO FINANCEIRO (SAQUES)
         async function finalizarSaqueNoSistema(id, metodo) {
             await updateDoc(doc(db, "saques", id), { 
                 status: "concluido", 
