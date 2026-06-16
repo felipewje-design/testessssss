@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Conta - Nexus</title>
+    <title>Criar Conta - Aeterna</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         :root {
-            --bg: radial-gradient(circle at center, #0a1526 0%, #020408 100%);
-            --accent-blue: #0077ff;
-            --accent-glow: rgba(0, 119, 255, 0.25);
-            --white: #ffffff;
-            --text-muted: #8492a6;
+            --bg-gradient: linear-gradient(180deg, #0c0d12 0%, #050508 100%);
+            --card-glass: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --aeterna-gold: #e5c158;
+            --gold-gradient: linear-gradient(135deg, #f3c63f 0%, #b88728 100%);
+            --gold-glow: rgba(229, 193, 88, 0.12);
+            --text-gray: #94a3b8;
         }
 
         * { 
@@ -28,42 +30,68 @@
         }
 
         body { 
-            background: var(--bg); 
-            color: white; 
+            background: var(--bg-gradient); 
+            color: #f8fafc; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             min-height: 100vh; 
-            padding: 20px; 
+            padding: 25px 20px; 
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Orbes de fundo premium */
+        .glowing-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: 1;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 450px; height: 450px; background: var(--aeterna-gold); }
+        .orb-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #b88728; }
+        
+        .reg-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 410px;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         .reg-container { 
-            width: 100%; 
-            max-width: 390px; 
-            background: rgba(255, 255, 255, 0.03); 
-            padding: 35px 28px; 
+            background: var(--card-glass); 
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            padding: 40px 32px; 
             border-radius: 28px; 
-            border: 1px solid rgba(255, 255, 255, 0.07); 
-            backdrop-filter: blur(16px); 
+            border: 1px solid var(--card-border); 
             text-align: center; 
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0px rgba(255,255,255,0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.03);
         }
         
+        .logo-box { margin-bottom: 30px; }
         .logo { 
-            font-size: 2.2rem; 
-            font-weight: 700; 
-            color: var(--white); 
-            margin-bottom: 4px; 
-            letter-spacing: -1px; 
+            font-size: 2.3rem; 
+            font-weight: 800; 
+            color: white; 
+            letter-spacing: -1.5px; 
         }
         .logo span { 
-            color: var(--accent-blue); 
-            text-shadow: 0 0 15px var(--accent-glow);
+            color: var(--aeterna-gold); 
+            text-shadow: 0 0 25px rgba(229, 193, 88, 0.3); 
         }
         .subtitle { 
-            color: var(--text-muted); 
+            color: var(--text-gray); 
             font-size: 0.85rem; 
-            margin-bottom: 30px; 
+            margin-top: 10px; 
             font-weight: 400;
         }
 
@@ -74,101 +102,134 @@
         }
         label { 
             display: block; 
-            margin-bottom: 6px; 
-            font-size: 0.75rem; 
-            color: var(--text-muted); 
-            padding-left: 4px; 
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            transition: color 0.3s; 
+            margin-bottom: 8px; 
+            font-size: 0.72rem; 
+            color: var(--text-gray); 
+            padding-left: 2px; 
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
         
         input { 
             width: 100%; 
-            padding: 15px 16px; 
-            background: rgba(0, 0, 0, 0.35); 
-            border: 1px solid rgba(255, 255, 255, 0.06); 
+            padding: 16px 20px; 
+            background: rgba(0, 0, 0, 0.25); 
+            border: 1px solid var(--card-border); 
             border-radius: 14px; 
             color: white; 
-            transition: all 0.3s ease; 
             font-size: 0.95rem; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        input::placeholder {
-            color: #4a5568;
-        }
+        input::placeholder { color: #4b5563; }
 
         input:focus { 
-            border-color: var(--accent-blue); 
-            background: rgba(0, 119, 255, 0.03); 
-            box-shadow: 0 0 14px var(--accent-glow);
+            border-color: var(--aeterna-gold); 
+            background: rgba(0, 0, 0, 0.4); 
+            box-shadow: 0 0 12px var(--gold-glow);
         }
 
-        input:focus + label, .input-group:focus-within label {
-            color: var(--accent-blue);
+        /* Padding especial para o input que tem o ícone do olho */
+        .input-password {
+            padding-right: 55px;
+        }
+
+        .input-group i.input-icon {
+            position: absolute;
+            right: 22px;
+            bottom: 16px;
+            color: #4b5563;
+            font-size: 1.05rem;
+            transition: color 0.3s;
+        }
+        .input-group i.btn-toggle-password {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+        .input-group i.btn-toggle-password:hover {
+            color: #94a3b8;
+        }
+        input:focus ~ i.input-icon {
+            color: var(--aeterna-gold);
         }
 
         .btn-reg { 
             width: 100%; 
-            padding: 16px; 
-            border-radius: 14px; 
+            padding: 18px; 
+            border-radius: 16px; 
             border: none; 
-            background: var(--accent-blue); 
-            color: white; 
-            font-weight: 700; 
-            cursor: pointer; 
-            margin-top: 12px; 
+            background: var(--gold-gradient); 
+            color: #000; 
+            font-weight: 800; 
             font-size: 0.95rem; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            text-transform: uppercase;
             letter-spacing: 0.5px;
-            transition: all 0.3s; 
-            box-shadow: 0 6px 20px rgba(0, 119, 255, 0.3);
+            transition: 0.2s; 
+            box-shadow: 0 6px 20px var(--gold-glow);
         }
-        
-        .btn-reg:active { transform: scale(0.98); opacity: 0.9; }
-        .btn-reg:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+        .btn-reg:active { transform: scale(0.97); }
+        .btn-reg:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
 
         .footer-link { 
             text-align: center; 
-            margin-top: 24px; 
-            font-size: 0.85rem; 
-            color: var(--text-muted);
+            margin-top: 28px; 
+            font-size: 0.82rem; 
+            color: #64748b;
         }
         .footer-link a { 
-            color: var(--accent-blue); 
+            color: white; 
             text-decoration: none; 
             font-weight: 600; 
-            transition: color 0.2s;
+            border-bottom: 1px dashed var(--aeterna-gold);
+            padding-bottom: 2px;
+            transition: 0.2s;
         }
         .footer-link a:hover {
-            color: #3399ff;
+            color: var(--aeterna-gold);
+            border-bottom-style: solid;
         }
     </style>
 </head>
 <body>
 
-    <div class="reg-container">
-        <div class="logo"><span>Nex</span>us</div>
-        <p class="subtitle">Cadastre-se para começar a lucrar</p>
-        
-        <div class="input-group">
-            <label>Nome Completo</label>
-            <input type="text" id="reg-nome" placeholder="Seu nome">
-        </div>
+    <div class="glowing-orb orb-1"></div>
+    <div class="glowing-orb orb-2"></div>
 
-        <div class="input-group">
-            <label>E-mail</label>
-            <input type="email" id="reg-email" placeholder="seu@email.com">
-        </div>
+    <div class="reg-wrapper">
+        <div class="reg-container">
+            <div class="logo-box">
+                <div class="logo"><span>Aet</span>erna</div>
+                <p class="subtitle">Cadastre-se para começar a gerenciar seus ativos</p>
+            </div>
+            
+            <div class="input-group">
+                <label>Nome Completo</label>
+                <input type="text" id="reg-nome" placeholder="Seu nome completo">
+            </div>
 
-        <div class="input-group">
-            <label>Senha</label>
-            <input type="password" id="reg-senha" placeholder="Mínimo 6 caracteres">
-        </div>
+            <div class="input-group">
+                <label>E-mail</label>
+                <input type="email" id="reg-email" placeholder="seu@email.com">
+            </div>
 
-        <button class="btn-reg" id="btnRegistrar">CADASTRAR AGORA</button>
+            <div class="input-group">
+                <label>Senha</label>
+                <input type="password" id="reg-senha" class="input-password" placeholder="Mínimo 6 caracteres">
+                <i class="fas fa-eye-slash input-icon btn-toggle-password" id="togglePassword"></i>
+            </div>
 
-        <div class="footer-link">
-            Já tem uma conta? <a href="index.html">Fazer Login</a>
+            <div class="input-group">
+                <label>Código de Convite (Opcional)</label>
+                <input type="text" id="reg-invite" placeholder="Código do indicador">
+            </div>
+
+            <button class="btn-reg" id="btnRegistrar">CADASTRAR AGORA</button>
+
+            <div class="footer-link">
+                Já tem uma conta? <a href="index.html">Fazer Login</a>
+            </div>
         </div>
     </div>
 
@@ -190,18 +251,31 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
+        // Lógica de alternar visibilidade da senha (Olho)
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('reg-senha');
+
+        togglePassword.addEventListener('click', function () {
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+            this.classList.toggle('fa-eye-slash', !isPassword);
+            this.classList.toggle('fa-eye', isPassword);
+        });
+
+        // Carregamento inteligente e preenchimento do código de convite
         const urlParams = new URLSearchParams(window.location.search);
-        let indicadoPor = urlParams.get('ref');
+        let indicadoPor = urlParams.get('ref') || localStorage.getItem('padrinho') || '';
+        
         if (indicadoPor) {
             localStorage.setItem('padrinho', indicadoPor);
-        } else {
-            indicadoPor = localStorage.getItem('padrinho');
+            document.getElementById('reg-invite').value = indicadoPor;
         }
 
         document.getElementById('btnRegistrar').addEventListener('click', async () => {
             const nome = document.getElementById('reg-nome').value.trim();
             const email = document.getElementById('reg-email').value.trim();
             const senha = document.getElementById('reg-senha').value;
+            const inviteInputCode = document.getElementById('reg-invite').value.trim();
             const btn = document.getElementById('btnRegistrar');
 
             if (!nome || !email || senha.length < 6) {
@@ -209,9 +283,9 @@
                     icon: 'warning',
                     title: 'Dados Incompletos',
                     text: 'Preencha todos os campos corretamente.',
-                    background: '#0a0f1a',
+                    background: '#0c0d12',
                     color: '#fff',
-                    confirmButtonColor: '#0077ff'
+                    confirmButtonColor: '#e5c158'
                 });
             }
 
@@ -220,7 +294,7 @@
                 title: 'Criando sua conta...',
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading(); },
-                background: '#0a0f1a',
+                background: '#0c0d12',
                 color: '#fff'
             });
 
@@ -236,7 +310,8 @@
                 const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
                 const user = userCredential.user;
 
-                let paiId = indicadoPor || null;
+                // Define o indicador com base no valor real digitado ou capturado no input
+                let paiId = inviteInputCode || null;
                 let avoId = null;
                 let bisavoId = null;
 
@@ -265,27 +340,28 @@
                                 });
                             }
                         }
-                    } catch (e) { console.error("Erro na linhagem:", e); }
+                    } catch (e) { console.error("Erro na linhagem de comissões/indicação:", e); }
                 }
 
-               await setDoc(doc(db, "usuarios", user.uid), {
-    nome: nome, //[cite: 6]
-    email: email, //[cite: 6]
-    saldo: saldoInicial, //[cite: 6]
-    saldoLucro: 0, //[cite: 6]     
-    totalGanhos: 0, //[cite: 6]
-    totalComissoes: 0, //[cite: 6]
-    giros: 1, // <--- ADICIONE ESTA LINHA AQUI!
-    indicadosCount: 0, //[cite: 6]  
-    indicadosL2Count: 0, //[cite: 6]
-    indicadosL3Count: 0, //[cite: 6]
-    indicadoPor: paiId, //[cite: 6]       
-    indicadoPorAvo: avoId, //[cite: 6]    
-    indicadoPorBisavo: bisavoId, //[cite: 6]
-    uid: user.uid, //[cite: 6]
-    status: "ativo", //[cite: 6]
-    dataCriacao: new Date().toISOString() //[cite: 6]
-});
+                await setDoc(doc(db, "usuarios", user.uid), {
+                    nome: nome, 
+                    email: email, 
+                    saldo: saldoInicial, 
+                    saldoLucro: 0,      
+                    totalGanhos: 0, 
+                    totalComissoes: 0, 
+                    giros: 1, 
+                    indicadosCount: 0,   
+                    indicadosL2Count: 0, 
+                    indicadosL3Count: 0, 
+                    indicadoPor: paiId,        
+                    indicadoPorAvo: avoId,     
+                    indicadoPorBisavo: bisavoId, 
+                    uid: user.uid, 
+                    status: "ativo", 
+                    dataCriacao: new Date().toISOString() 
+                });
+
                 if (saldoInicial > 0) {
                     await addDoc(collection(db, "historico"), {
                         userId: user.uid,
@@ -302,7 +378,7 @@
                     icon: 'success',
                     title: 'Conta Criada!',
                     text: saldoInicial > 0 ? `Você ganhou R$ ${saldoInicial.toFixed(2)} de bônus!` : 'Seja bem-vindo!',
-                    background: '#0a0f1a',
+                    background: '#0c0d12',
                     color: '#fff',
                     showConfirmButton: false,
                     timer: 2000
@@ -319,9 +395,9 @@
                     icon: 'error',
                     title: 'Erro',
                     text: msg,
-                    background: '#0a0f1a',
+                    background: '#0c0d12',
                     color: '#fff',
-                    confirmButtonColor: '#0077ff'
+                    confirmButtonColor: '#e5c158'
                 });
             }
         });
