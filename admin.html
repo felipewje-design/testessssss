@@ -90,7 +90,6 @@
         .status-ativo { background: rgba(46, 204, 113, 0.2); color: var(--green); }
         .status-bloqueado { background: rgba(231, 76, 60, 0.2); color: var(--red); }
 
-        /* Oculto por padrão para segurança visual */
         #admin-panel { display: none; }
         #access-denied { display: none; text-align: center; margin-top: 100px; }
     </style>
@@ -197,7 +196,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, query, where, getDocs, doc, updateDoc, getDoc, setDoc, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, query, where, getDocs, doc, updateDoc, getDoc, setDoc, limit, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDKDFw7khZzM9hIX7xbbrbFQeESiCLnmOw",
@@ -278,7 +277,7 @@
             if (isNaN(valor)) return Toast.fire({ icon: 'error', title: 'Valor inválido' });
             try {
                 await setDoc(doc(db, "configuracoes", "bonus_cadastro"), { valor: valor, atualizadoEm: new Date() });
-                Toast.fire({ icon: 'success', title: 'Bônus atualizado!' });
+                Toast.fire({ icon: 'success', title: 'Bônus updated!' });
             } catch (e) { Toast.fire({ icon: 'error', title: 'Erro ao salvar' }); }
         });
 
@@ -317,9 +316,10 @@
             const valorAdicionar = parseFloat(document.getElementById('input-new-amount').value);
             if (isNaN(valorAdicionar)) return;
             const ref = doc(db, "usuarios", userEncontradoId);
-            const userSnap = await getDoc(ref);
-            const novoSaldo = (parseFloat(userSnap.data().saldo) || 0) + valorAdicionar;
-            await updateDoc(ref, { saldo: novoSaldo });
+            
+            // Otimizado com increment nativo (evita race conditions)
+            await updateDoc(ref, { saldo: increment(valorAdicionar) });
+            
             document.getElementById('btn-search-user').click();
             carregarEstatisticasGerais();
             Toast.fire({ icon: 'success', title: 'Saldo atualizado!' });
@@ -363,6 +363,30 @@
             } catch(e) {}
         }
 
+        // Função unificada para dar baixa no saque E corrigir o status pendente no Histórico Financeiro
+        async function finalizarSaqueNoSistema(id, metodo) {
+            // 1. Atualiza na coleção principal de saques
+            await updateDoc(doc(db, "saques", id), { 
+                status: "concluido", 
+                dataPagamento: new Date(), 
+                metodo: metodo 
+            });
+
+            // 2. Atualiza de forma inteligente nas coleções de histórico correspondentes
+            try {
+                const colecoesHistorico = ["historico", "historico_financeiro", "transacoes"];
+                for (const nomeCol of colecoesHistorico) {
+                    const q = query(collection(db, nomeCol), where("saqueId", "==", id));
+                    const snap = await getDocs(q);
+                    for (const d of snap.docs) {
+                        await updateDoc(doc(db, nomeCol, d.id), { status: "concluido" });
+                    }
+                }
+            } catch (e) {
+                console.error("Erro ao atualizar o histórico de transações:", e);
+            }
+        }
+
         async function carregarSaquesPendentes() {
             const lista = document.getElementById('lista-saques');
             try {
@@ -379,8 +403,15 @@
                     const s = docSnap.data();
                     const id = docSnap.id;
                     const tr = document.createElement('tr');
+                    
+                    // Tratamento seguro para Timestamps do Firebase na interface
+                    let dataExibicao = '---';
+                    if (s.data) {
+                        dataExibicao = s.data.toDate ? s.data.toDate().toLocaleString('pt-BR') : s.data;
+                    }
+
                     tr.innerHTML = `
-                        <td>${s.data || '---'}</td>
+                        <td>${dataExibicao}</td>
                         <td><small>${s.chavePix || 'Não informada'}</small></td>
                         <td style="color:var(--green); font-weight:bold;">R$ ${parseFloat(s.valorReceber || 0).toFixed(2)}</td>
                         <td><button class="btn btn-add" style="padding:6px; font-size:11px;" id="btn-pay-${id}">PAGAR VIA PIPEDREAM</button></td>
@@ -405,7 +436,7 @@
                         btn.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
 
                         try {
-                            // TENTATIVA AUTOMÁTICA
+                            // TENTATIVA AUTOMÁTICA VIA API
                             const response = await fetch(URL_PIPEDREAM_PAYOUT, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -418,8 +449,8 @@
                             });
 
                             if (response.ok) {
-                                await updateDoc(doc(db, "saques", id), { status: "concluido", dataPagamento: new Date(), metodo: "AUTOMATICO" });
-                                Swal.fire('Sucesso!', 'Enviado ao Pipedream.', 'success');
+                                await finalizarSaqueNoSistema(id, "AUTOMATICO");
+                                Swal.fire('Sucesso!', 'Enviado ao Pipedream e histórico atualizado.', 'success');
                                 carregarDadosIniciais();
                             } else {
                                 const text = await response.text();
@@ -428,11 +459,11 @@
                         } catch (error) {
                             console.error("ERRO PIPEDREAM:", error);
                             
-                            // --- LÓGICA DE CONTINGÊNCIA (BAIXA MANUAL) ---
+                            // LÓGICA DE CONTINGÊNCIA (BAIXA MANUAL)
                             const confirmManual = await Swal.fire({
                                 icon: 'error',
                                 title: 'Falha na Automação',
-                                text: `O Pipedream falhou (Erro ${error.message}). Deseja dar baixa MANUALMENTE no painel e fazer o PIX pelo seu banco?`,
+                                text: `O Pipedream falhou (${error.message}). Deseja dar baixa MANUALMENTE no painel e fazer o PIX pelo seu banco?`,
                                 showCancelButton: true,
                                 confirmButtonText: 'Sim, Baixar Manualmente',
                                 cancelButtonText: 'Não, cancelar',
@@ -442,8 +473,8 @@
                             });
 
                             if (confirmManual.isConfirmed) {
-                                await updateDoc(doc(db, "saques", id), { status: "concluido", dataPagamento: new Date(), metodo: "MANUAL_ERRO_API" });
-                                Swal.fire('Baixa Efetuada!', 'O saque foi marcado como pago no sistema. Faça o PIX manualmente.', 'success');
+                                await finalizarSaqueNoSistema(id, "MANUAL_ERRO_API");
+                                Swal.fire('Baixa Efetuada!', 'O status do saque e do histórico foram atualizados. Faça o PIX manualmente no seu banco.', 'success');
                                 carregarDadosIniciais();
                             } else {
                                 btn.disabled = false;
