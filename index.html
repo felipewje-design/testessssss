@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Nexus</title>
+    <title>Login - Aeterna</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         :root {
-            --bg-gradient: linear-gradient(180deg, #060b19 0%, #020408 100%);
-            --card-glass: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.07);
-            --blue-primary: #0052ff;
-            --blue-glow: rgba(0, 82, 255, 0.25);
-            --cyan-neon: #00d2ff;
-            --text-gray: #8a8a93;
+            --bg-gradient: linear-gradient(180deg, #0c0d12 0%, #050508 100%);
+            --card-glass: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --aeterna-gold: #e5c158;
+            --gold-gradient: linear-gradient(135deg, #f3c63f 0%, #b88728 100%);
+            --gold-glow: rgba(229, 193, 88, 0.12);
+            --text-gray: #94a3b8;
         }
 
         * { 
@@ -37,30 +37,31 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
+            color: #f8fafc;
         }
 
-        /* Orbes de Luz decorativos ao fundo para manter a profundidade do painel */
+        /* Orbes de Luz Ouro de Alta Performance */
         .glowing-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(130px);
+            filter: blur(140px);
             z-index: 1;
-            opacity: 0.15;
+            opacity: 0.06;
             pointer-events: none;
         }
-        .orb-1 { top: -10%; left: -10%; width: 400px; height: 400px; background: var(--blue-primary); }
-        .orb-2 { bottom: -10%; right: -10%; width: 450px; height: 450px; background: var(--cyan-neon); }
+        .orb-1 { top: -10%; left: -10%; width: 450px; height: 450px; background: var(--aeterna-gold); }
+        .orb-2 { bottom: -10%; right: -10%; width: 500px; height: 500px; background: #b88728; }
 
         .login-wrapper {
             position: relative;
             z-index: 2;
             width: 100%;
             max-width: 410px;
-            animation: fadeIn 0.6s ease-out;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -68,11 +69,11 @@
             background: var(--card-glass);
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
-            padding: 50px 35px;
+            padding: 45px 32px;
             border-radius: 28px;
             border: 1px solid var(--card-border);
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.03);
         }
 
         .logo-box {
@@ -81,20 +82,22 @@
 
         .logo {
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 800;
             color: white;
             letter-spacing: -1.5px;
             display: inline-block;
         }
-
-        .logo span { color: var(--blue-primary); text-shadow: 0 0 25px var(--blue-glow); }
+        .logo span { 
+            color: var(--aeterna-gold); 
+            text-shadow: 0 0 25px rgba(229, 193, 88, 0.3); 
+        }
         
         .login-card p { 
             color: var(--text-gray); 
-            font-size: 0.88rem; 
-            margin-top: 10px;
-            line-height: 1.4;
-            letter-spacing: 0.2px;
+            font-size: 0.85rem; 
+            margin-top: 12px;
+            line-height: 1.5;
+            font-weight: 400;
         }
 
         .input-container {
@@ -102,92 +105,91 @@
             position: relative;
         }
 
-        .input-container i.input-icon {
-            position: absolute;
-            right: 22px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #4c4c54;
-            font-size: 1.05rem;
-            transition: color 0.3s, cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Ícone interativo de ver senha */
-        .input-container i.btn-toggle-password {
-            cursor: pointer;
-            pointer-events: auto;
-        }
-        .input-container i.btn-toggle-password:hover {
-            color: #8a8a93;
-        }
-
         input {
             width: 100%;
             padding: 18px 55px 18px 22px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--card-border);
             border-radius: 16px;
             color: white;
             font-size: 0.95rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        input::placeholder { color: #4c4c54; }
+        input::placeholder { color: #4b5563; }
 
         input:focus { 
-            border-color: rgba(0, 82, 255, 0.5); 
-            background: rgba(4, 8, 19, 0.9);
-            box-shadow: 0 0 25px var(--blue-glow), inset 0 1px 0 rgba(255,255,255,0.02);
+            border-color: var(--aeterna-gold); 
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .input-container i.input-icon {
+            position: absolute;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4b5563;
+            font-size: 1.05rem;
+            transition: color 0.3s;
+        }
+
+        /* Ícone interativo do Olho para ver senha */
+        .input-container i.btn-toggle-password {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+        .input-container i.btn-toggle-password:hover {
+            color: #94a3b8;
         }
         
         input:focus ~ i.input-icon {
-            color: var(--cyan-neon);
+            color: var(--aeterna-gold);
         }
 
+        /* Botão de Ação Premium */
         .btn-modern-submit {
             width: 100%;
             padding: 18px;
             border: none;
             border-radius: 16px;
-            background: var(--blue-primary);
-            color: white;
-            font-weight: 700;
+            background: var(--gold-gradient);
+            color: #000;
+            font-weight: 800;
             font-size: 0.95rem;
             cursor: pointer;
             margin-top: 15px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 25px var(--blue-glow);
+            transition: 0.2s;
+            box-shadow: 0 6px 20px var(--gold-glow);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .btn-modern-submit:hover {
             opacity: 0.95;
-            box-shadow: 0 10px 30px rgba(0, 82, 255, 0.45);
-            background: #1a63ff;
+            box-shadow: 0 8px 25px rgba(229, 193, 88, 0.25);
         }
-        .btn-modern-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        .btn-modern-submit:active { transform: scale(0.98); }
+        .btn-modern-submit:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+        .btn-modern-submit:active { transform: scale(0.97); }
 
         .footer-action { 
             margin-top: 32px; 
-            font-size: 0.85rem; 
-            color: #6c6c74;
+            font-size: 0.82rem; 
+            color: #64748b;
         }
         .footer-action a { 
             color: white; 
             text-decoration: none; 
             font-weight: 600;
-            border-bottom: 1px dashed var(--blue-primary);
+            border-bottom: 1px dashed var(--aeterna-gold);
             padding-bottom: 2px;
-            transition: color 0.2s, border-color 0.2s;
+            transition: 0.2s;
         }
         .footer-action a:hover { 
-            color: var(--cyan-neon);
-            border-bottom-color: var(--cyan-neon);
+            color: var(--aeterna-gold);
             border-bottom-style: solid;
         }
     </style>
@@ -200,8 +202,8 @@
     <div class="login-wrapper">
         <div class="login-card">
             <div class="logo-box">
-                <div class="logo"><span>Nex</span>us</div>
-                <p>Entre na sua central de investimentos de alta performance</p>
+                <div class="logo"><span>Aet</span>erna</div>
+                <p>Entre na sua central de alta performance e gerenciamento de ativos</p>
             </div>
 
             <div class="input-container">
@@ -211,12 +213,12 @@
 
             <div class="input-container">
                 <input type="password" id="password" placeholder="Senha de acesso">
-                <i class="fas fa-lock input-icon btn-toggle-password" id="togglePassword"></i>
+                <i class="fas fa-eye-slash input-icon btn-toggle-password" id="togglePassword"></i>
             </div>
 
             <button class="btn-modern-submit" id="btnLogin">
                 <span>CONECTAR MINHA CONTA</span>
-                <i class="fas fa-arrow-right" style="font-size: 0.85rem; position: static; color: inherit; transform: none;"></i>
+                <i class="fas fa-arrow-right" style="font-size: 0.85rem;"></i>
             </button>
 
             <div class="footer-action">
@@ -241,16 +243,17 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Alternar visibilidade da senha
+        // Sistema dinâmico para alternar visibilidade da senha (Olho)
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
 
         togglePassword.addEventListener('click', function () {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
             
-            this.classList.toggle('fa-lock');
-            this.classList.toggle('fa-eye');
+            // Alterna as classes do FontAwesome dinamicamente
+            this.classList.toggle('fa-eye-slash', !isPassword);
+            this.classList.toggle('fa-eye', isPassword);
         });
 
         document.getElementById('btnLogin').addEventListener('click', async () => {
@@ -263,9 +266,9 @@
                     icon: 'warning',
                     title: 'Dados incompletos',
                     text: 'Preencha seu e-mail e senha.',
-                    background: '#060b19',
+                    background: '#0c0d12',
                     color: '#fff',
-                    confirmButtonColor: '#0052ff'
+                    confirmButtonColor: '#e5c158'
                 });
                 return;
             }
@@ -275,7 +278,7 @@
                 title: 'Autenticando...',
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading(); },
-                background: '#060b19',
+                background: '#0c0d12',
                 color: '#fff'
             });
 
@@ -287,7 +290,7 @@
                     title: 'Acesso autorizado!',
                     showConfirmButton: false,
                     timer: 1200,
-                    background: '#060b19',
+                    background: '#0c0d12',
                     color: '#fff'
                 });
 
@@ -309,13 +312,12 @@
                     icon: 'error',
                     title: 'Falha no acesso',
                     text: mensagem,
-                    background: '#060b19',
+                    background: '#0c0d12',
                     color: '#fff',
-                    confirmButtonColor: '#0052ff'
+                    confirmButtonColor: '#e5c158'
                 });
             }
         });
     </script>
 </body>
-</html>
 </html>
