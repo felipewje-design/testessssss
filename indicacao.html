@@ -142,16 +142,31 @@
             justify-content: space-between;
         }
 
-        /* CAIXA DO LINK DE CONVITE */
+        /* CAIXAS DE CONVITE E LINK */
+        .copy-section-title {
+            text-align: left; 
+            font-size: 0.75rem; 
+            color: var(--text-muted); 
+            margin-bottom: 6px; 
+            margin-top: 20px;
+            font-weight: 700; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .copy-section-title i { color: var(--gold); }
+
         .link-box {
             background: rgba(0, 0, 0, 0.4); 
-            padding: 16px 20px;
-            border-radius: 16px; 
+            padding: 12px 16px;
+            border-radius: 14px; 
             border: 1px solid rgba(255, 215, 0, 0.15);
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            margin: 26px 0;
+            margin-bottom: 8px;
             box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
         }
@@ -160,7 +175,7 @@
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.05), inset 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        #referral-link { 
+        .link-box span {
             font-size: 0.85rem; 
             color: #fff; 
             overflow: hidden; 
@@ -171,13 +186,15 @@
             text-align: left;
             font-weight: 600;
         }
+        #referral-code { font-size: 1.05rem; color: var(--gold); }
+
         .btn-copy { 
             background: var(--gold-gradient); 
             border: none; 
             color: #020408; 
             cursor: pointer; 
-            font-size: 1rem; 
-            padding: 10px 14px; 
+            font-size: 0.9rem; 
+            padding: 8px 12px; 
             border-radius: 10px;
             font-weight: 700;
             transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -190,7 +207,7 @@
         .btn-copy:active { transform: scale(0.95); }
 
         /* METRIC GRID */
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 22px; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; margin-bottom: 22px; }
         .stat-item { 
             background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); 
             padding: 14px 16px; 
@@ -336,10 +353,19 @@
             <span id="progress-percent" style="color: var(--gold); font-weight: 700;">0%</span>
         </div>
 
+        <!-- SESSÃO DE CONVITE SEPARADA: CÓDIGO E LINK -->
+        <div class="copy-section-title"><i class="fas fa-key"></i> Seu Código de Convite</div>
+        <div class="link-box">
+            <span id="referral-code">Gerando código...</span>
+            <button class="btn-copy" id="btn-code" onclick="window.copyCode()" title="Copiar Código"><i class="far fa-copy"></i></button>
+        </div>
+
+        <div class="copy-section-title"><i class="fas fa-link"></i> Link Automático de Cadastro</div>
         <div class="link-box">
             <span id="referral-link">Gerando link exclusivo...</span>
-            <button class="btn-copy" onclick="window.copyLink()" title="Copiar Link"><i class="far fa-copy"></i></button>
+            <button class="btn-copy" id="btn-link" onclick="window.copyLink()" title="Copiar Link"><i class="far fa-copy"></i></button>
         </div>
+        <!-- FIM SESSÃO DE CONVITE -->
 
         <div class="stats-grid">
             <div class="stat-item">
@@ -423,9 +449,14 @@
             if (user) {
                 const baseUrl = window.location.origin;
                 const linkElement = document.getElementById('referral-link');
+                const codeElement = document.getElementById('referral-code');
+                
+                // Preenche o Link e o Código na tela
                 linkElement.innerText = `${baseUrl}/registro.html?ref=${user.uid}`;
+                codeElement.innerText = user.uid;
                 
                 linkElement.classList.add('animate__animated', 'animate__fadeIn');
+                codeElement.classList.add('animate__animated', 'animate__fadeIn');
                 
                 onSnapshot(doc(db, "usuarios", user.uid), (snap) => {
                     if(snap.exists()){
@@ -496,38 +527,49 @@
             percentLabel.innerText = finalPercent + "%";
         }
 
+        // Funções Dinâmicas de Cópia
+        window.copyCode = function() {
+            const code = document.getElementById('referral-code').innerText;
+            if(code.includes("Gerando")) return;
+            executarCopia(code, 'btn-code', 'Código Copiado!');
+        }
+
         window.copyLink = function() {
             const link = document.getElementById('referral-link').innerText;
             if(link.includes("Gerando")) return;
+            executarCopia(link, 'btn-link', 'Link Copiado!');
+        }
 
+        function executarCopia(texto, btnId, msgSucesso) {
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(link).then(() => {
-                    sucessoCopia();
+                navigator.clipboard.writeText(texto).then(() => {
+                    sucessoCopiaVisual(btnId, msgSucesso);
                 }).catch(err => {
-                    fallbackCopy(link);
+                    fallbackCopy(texto, btnId, msgSucesso);
                 });
             } else {
-                fallbackCopy(link);
+                fallbackCopy(texto, btnId, msgSucesso);
             }
         }
 
-        function fallbackCopy(text) {
+        function fallbackCopy(text, btnId, msgSucesso) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
             document.body.appendChild(textArea);
             textArea.select();
             try {
                 document.execCommand('copy');
-                sucessoCopia();
+                sucessoCopiaVisual(btnId, msgSucesso);
             } catch (err) {
                 console.error('Erro ao copiar', err);
             }
             document.body.removeChild(textArea);
         }
 
-        function sucessoCopia() {
-            const btn = document.querySelector('.btn-copy');
+        function sucessoCopiaVisual(btnId, tituloAlerta) {
+            const btn = document.getElementById(btnId);
             const iconOriginal = btn.innerHTML;
+            
             btn.innerHTML = '<i class="fas fa-check"></i>';
             btn.style.background = 'var(--green-success)';
             btn.style.color = '#fff';
@@ -540,11 +582,11 @@
 
             Swal.fire({
                 icon: 'success',
-                title: 'Link Copiado!',
+                title: tituloAlerta,
                 text: 'Compartilhe e ganhe comissões em até 3 níveis!',
                 background: '#060b19',
                 color: '#fff',
-                timer: 2500,
+                timer: 2000,
                 showConfirmButton: false,
                 backdrop: `rgba(0,0,0,0.6)`
             });
