@@ -509,6 +509,21 @@
         </div>
     </div>
 
+    <!-- MÓDULO ADICIONADO: CÓDIGO PROMOCIONAL DIÁRIO -->
+    <div class="vault-card animate__animated animate__fadeInDown" style="animation-delay: 0.11s; border-color: rgba(16, 185, 129, 0.25);">
+        <div class="vault-header">
+            <div class="vault-icon-box" style="color: var(--green-success); background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);"><i class="fas fa-ticket-alt"></i></div>
+            <div class="vault-title-meta">
+                <h3>Código Promocional</h3>
+                <p>Insira o código diário para ganhar de R$ 0,00 a R$ 1,00 extra</p>
+            </div>
+        </div>
+        <div class="vault-status-box" style="gap: 10px;">
+            <input type="text" id="input-promo-code" placeholder="DIGITE O CÓDIGO AQUI" style="background: rgba(0,0,0,0.4); border: 1px solid var(--card-border); padding: 10px 14px; border-radius: 10px; color: #fff; font-size: 0.8rem; width: 65%; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+            <button class="btn-vault-action" id="btn-redeem-promo" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2); min-width: 85px;">Validar</button>
+        </div>
+    </div>
+
     <div class="vault-card animate__animated animate__fadeInDown" style="animation-delay: 0.12s;">
         <div class="vault-header">
             <div class="vault-icon-box"><i class="fas fa-vault"></i></div>
@@ -604,7 +619,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc, collection, query, orderBy, limit, getDocs, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        // Importes atualizados contendo arrayUnion, increment, setDoc, runTransaction para segurança transacional
+        import { getFirestore, doc, getDoc, updateDoc, collection, query, orderBy, limit, getDocs, arrayUnion, increment, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDKDFw7khZzM9hIX7xbbrbFQeESiCLnmOw",
@@ -746,6 +762,93 @@
             txtProgress.innerText = metaTexto;
             barFill.style.width = `${pct}%`;
         }
+
+        // --- LÓGICA DE RESGATE DE CÓDIGO PROMOCIONAL ---
+        document.getElementById('btn-redeem-promo').addEventListener('click', async () => {
+            const inputCodigo = document.getElementById('input-promo-code').value.trim().toUpperCase();
+            
+            if (!inputCodigo) {
+                Swal.fire({ icon: 'warning', title: 'Atenção', text: 'Por favor, digite um código promocional.', background: '#0c0d12', color: '#fff', confirmButtonColor: '#10b981' });
+                return;
+            }
+
+            const btnRedeem = document.getElementById('btn-redeem-promo');
+            btnRedeem.disabled = true;
+            btnRedeem.innerText = "...";
+
+            try {
+                const promoRef = doc(db, "codigos_promocionais", inputCodigo);
+                
+                // Executando transação atômica para evitar estouro de limite por cliques simultâneos
+                await runTransaction(db, async (transaction) => {
+                    const promoSnap = await transaction.get(promoRef);
+                    
+                    if (!promoSnap.exists()) {
+                        throw "Código inválido ou expirado.";
+                    }
+
+                    const dadosPromo = promoSnap.data();
+                    const limiteUso = Number(dadosPromo.limiteUso || 0);
+                    const usadosCount = Number(dadosPromo.usadosCount || 0);
+                    const usuariosQueUsaram = dadosPromo.usuariosQueUsaram || [];
+
+                    if (usuariosQueUsaram.includes(currentUserUid)) {
+                        throw "Você já resgatou este código promocional hoje!";
+                    }
+
+                    if (usadosCount >= limiteUso) {
+                        throw "Este código promocional esgotou o limite de usos!";
+                    }
+
+                    // Sorteia o prêmio aleatório solicitado (de R$ 0,00 a R$ 1,00)
+                    const premioSorteado = Number((Math.random()).toFixed(2));
+
+                    const userRef = doc(db, "usuarios", currentUserUid);
+                    const userSnap = await transaction.get(userRef);
+                    const saldoAtualUser = Number(userSnap.data().saldoLucro || 0);
+
+                    // Atualiza os dados do cupom na Blockchain/Database
+                    transaction.update(promoRef, {
+                        usadosCount: increment(1),
+                        usuariosQueUsaram: arrayUnion(currentUserUid)
+                    });
+
+                    // Insere o saldo premiado na carteira do usuário
+                    transaction.update(userRef, {
+                        saldoLucro: saldoAtualUser + premioSorteado
+                    });
+
+                    // Salva o prêmio localmente para a resposta visual externa
+                    transaction.set(doc(collection(db, "usuarios", currentUserUid, "movimentacoes")), {
+                        tipo: "Bônus Promocional",
+                        valor: premioSorteado,
+                        data: new Date().getTime(),
+                        descricao: `Código validado: ${inputCodigo}`
+                    });
+
+                    saldoGlobal = saldoAtualUser + premioSorteado;
+                });
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Código Resgatado!',
+                    text: `Parabéns! Você ganhou R$ ${saldoGlobal - Number(document.getElementById('stat-saldo').innerText.replace('R$ ', '').replace(',', '.'))} adicionados instantaneamente ao seu saldo!`,
+                    background: '#0c0d12',
+                    color: '#fff',
+                    confirmButtonColor: '#10b981'
+                });
+
+                document.getElementById('stat-saldo').innerText = `R$ ${saldoGlobal.toFixed(2)}`;
+                document.getElementById('input-promo-code').value = "";
+
+            } catch (erroMensagem) {
+                Swal.fire({ icon: 'error', title: 'Falha no Resgate', text: typeof erroMensagem === 'string' ? erroMensagem : "Erro interno ao processar código.", background: '#0c0d12', color: '#fff', confirmButtonColor: '#ff4d4d' });
+            } finally {
+                btnRedeem.disabled = false;
+                btnRedeem.innerText = "Validar";
+            }
+        });
+
 
         // --- RENDERIZADOR DINÂMICO DO SISTEMA DE METAS & RANKING ---
         async function carregarDadosMetasERanking() {
